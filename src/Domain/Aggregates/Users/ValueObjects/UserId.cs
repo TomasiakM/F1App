@@ -5,25 +5,11 @@ public sealed class UserId : ValueObject
 {
     public Guid Value { get; init; }
 
-    private UserId()
-    {
-        Value = Guid.NewGuid();
-    }
+    private UserId() => Value = Guid.NewGuid();
+    private UserId(Guid value) => Value = value;
 
-    private UserId(Guid id)
-    {
-        Value = id;
-    }
-
-    public static UserId Create()
-    {
-        return new UserId(Guid.NewGuid());
-    }
-
-    public static UserId Create(Guid id)
-    {
-        return new UserId(id);
-    }
+    public static UserId Create() => new(Guid.NewGuid());
+    public static UserId Create(Guid value) => new(value);
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
