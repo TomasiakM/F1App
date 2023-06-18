@@ -35,7 +35,7 @@ public sealed class ArticleController : ControllerBase
         return Ok(res);
     }
 
-    [HttpGet("slug")]
+    [HttpGet("{slug}")]
     public async Task<IActionResult> GetBySlug(string slug)
     {
         var query = new GetArticleQuery(slug);

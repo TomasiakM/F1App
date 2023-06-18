@@ -13,11 +13,11 @@ internal sealed class ArticleMapperConfig : IRegister
         config.NewConfig<CreateArticleRequest, CreateArticleCommand>();
 
         config.NewConfig<Article, ArticleResponse>()
-            .Map(dest => dest.Likes, src => src.Likes.Count())
+            .Map(dest => dest.Likes, src => src.Likes.Select(e => e.UserId.Value))
             .Map(dest => dest.Id, src => src.Id.Value);
 
         config.NewConfig<(Article article, List<Tag> tags), ArticleResponse>()
-            .Map(dest => dest.Likes, src => src.article.Likes.Count())
+            .Map(dest => dest.Likes, src => src.article.Likes.Select(e => e.UserId.Value))
             .Map(dest => dest.Id, src => src.article.Id.Value)
             .Map(dest => dest.Tags, src => src.tags)
             .Map(dest => dest, src => src.article);

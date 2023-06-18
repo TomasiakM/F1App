@@ -13,8 +13,8 @@ internal class ArticleRepository : GenericRepository<Article, ArticleId>, IArtic
     public Task<List<Article>> GetPagginatedAsync(int page, int pageSize, CancellationToken cancellationToken = default)
     {
         return _set
-            .Where(e => e.PublishedAt > DateTimeOffset.UtcNow)
-            .OrderBy(e => e.PublishedAt)
+            .Where(e => e.PublishedAt < DateTimeOffset.UtcNow)
+            .OrderByDescending(e => e.PublishedAt)
             .Skip((page - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync();

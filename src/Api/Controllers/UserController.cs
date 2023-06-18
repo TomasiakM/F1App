@@ -43,7 +43,7 @@ public sealed class UserController : ControllerBase
         return Ok();
     }
 
-    [HttpPost("{userId}")]
+    [HttpPost("{userId}/ban")]
     [Authorize(Roles = Role.AdminRoleName)]
     public async Task<IActionResult> Ban(BanUserRequest request, Guid userId)
     {

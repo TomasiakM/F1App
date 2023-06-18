@@ -8,5 +8,6 @@ public record ArticleResponse(
     string Image,
     string Description,
     string DescriptionHtml,
-    int Likes,
+    List<string> Likes,
+    DateTimeOffset PublishedAt,
     List<TagResponse> Tags);

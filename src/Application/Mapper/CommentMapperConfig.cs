@@ -23,7 +23,7 @@ internal sealed class CommentMapperConfig : IRegister
         config.NewConfig<(Comment comment, List<ReplyResponse> replies, User user), CommentResponse>()
             .Map(dest => dest.Id, src => src.comment.Id.Value)
             .Map(dest => dest.Replies, src => src.replies)
-            .Map(dest => dest.User, src => src.user)
+            .Map(dest => dest.CreatedBy, src => src.user)
             .Map(dest => dest, src => src.comment);
 
         config.NewConfig<(Reply reply, User user), ReplyResponse>()

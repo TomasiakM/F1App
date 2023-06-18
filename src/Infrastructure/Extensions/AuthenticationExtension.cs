@@ -49,8 +49,9 @@ internal static class AuthenticationExtension
                 options.ExpireTimeSpan = TimeSpan.FromDays(cookieSettings.ExpiryDays);
 
                 options.Cookie.SecurePolicy = CookieSecurePolicy.Always;
-                options.Cookie.SameSite = SameSiteMode.Lax;
+                options.Cookie.SameSite = SameSiteMode.None;
                 options.Cookie.HttpOnly = true;
+
 
                 options.Events = new CookieAuthenticationEvents
                 {

@@ -4,6 +4,6 @@ namespace Application.Dtos.Comments.Responses;
 public record CommentResponse(
     string Id,
     string Text,
-    string CreatedAt,
-    UserResponse User,
+    DateTimeOffset CreatedAt,
+    UserResponse CreatedBy,
     List<ReplyResponse> Replies);

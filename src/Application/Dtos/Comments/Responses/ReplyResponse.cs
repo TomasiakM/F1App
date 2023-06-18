@@ -4,5 +4,5 @@ namespace Application.Dtos.Comments.Responses;
 public record ReplyResponse(
     string Id,
     string Text,
-    string CreatedAt,
+    DateTimeOffset CreatedAt,
     UserResponse CreatedBy);
