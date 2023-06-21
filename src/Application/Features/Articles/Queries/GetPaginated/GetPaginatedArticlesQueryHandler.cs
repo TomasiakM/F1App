@@ -18,8 +18,7 @@ internal sealed class GetPaginatedArticlesQueryHandler : IRequestHandler<GetPagi
 
     public async Task<Pagination<ArticleResponse>> Handle(GetPaginatedArticlesQuery request, CancellationToken cancellationToken)
     {
-        var articles = await _unitOfWork.Articles.GetPagginatedAsync(request.Filters.Page, request.Filters.PageSize, cancellationToken);
-        var pages = await _unitOfWork.Articles.GetPageCountAsync(request.Filters.PageSize, cancellationToken);
+        var (articles, pages) = await _unitOfWork.Articles.GetPaginatedAsync(request.Filters.Page, request.Filters.PageSize, cancellationToken);
         
         var articleDtos = _mapper.Map<List<ArticleResponse>>(articles);
 

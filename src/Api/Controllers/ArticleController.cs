@@ -5,6 +5,7 @@ using Application.Features.Articles.Commands.Like;
 using Application.Features.Articles.Commands.Update;
 using Application.Features.Articles.Queries.GetArticle;
 using Application.Features.Articles.Queries.GetPaginated;
+using Application.Features.Articles.Queries.GetPaginatedAdmin;
 using Domain.Aggregates.Roles;
 using MapsterMapper;
 using MediatR;
@@ -30,6 +31,16 @@ public sealed class ArticleController : ControllerBase
     public async Task<IActionResult> Get([FromQuery] PaginationFilters filters)
     {
         var query = new GetPaginatedArticlesQuery(filters);
+        var res = await _sender.Send(query);
+
+        return Ok(res);
+    }
+
+    [HttpGet("admin")]
+    [Authorize(Roles = Role.AdminRoleName)]
+    public async Task<IActionResult> GetAdmin([FromQuery] PaginationFilters filters)
+    {
+        var query = new GetPaginatedAdminArticlesQuery(filters);
         var res = await _sender.Send(query);
 
         return Ok(res);

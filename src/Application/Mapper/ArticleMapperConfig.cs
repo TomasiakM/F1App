@@ -1,6 +1,7 @@
 ﻿using Application.Dtos.Article.Requests;
 using Application.Dtos.Article.Responses;
 using Application.Features.Articles.Commands.Create;
+using Application.Features.Articles.Commands.Update;
 using Domain.Aggregates.Articles;
 using Domain.Aggregates.Tags;
 using Mapster;
@@ -11,6 +12,10 @@ internal sealed class ArticleMapperConfig : IRegister
     public void Register(TypeAdapterConfig config)
     {
         config.NewConfig<CreateArticleRequest, CreateArticleCommand>();
+
+        config.NewConfig<(Guid articleId, UpdateArticleRequest request), UpdateArticleCommand>()
+            .Map(dest => dest.ArticleId, src => src.articleId)
+            .Map(dest => dest, src => src.request);
 
         config.NewConfig<Article, ArticleResponse>()
             .Map(dest => dest.Likes, src => src.Likes.Select(e => e.UserId.Value))

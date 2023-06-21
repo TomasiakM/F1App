@@ -44,7 +44,10 @@ public sealed class Article : AggregateRoot<ArticleId>
 
     public void Update(string title, string image, string description, string descriptionHtml, DateTimeOffset publishedAt, List<TagId> tagIds, IDateProvider dateProvider)
     {
-        ValidateDate(publishedAt, dateProvider);
+        if(PublishedAt > dateProvider.UtcNow)
+        {
+            ValidateDate(publishedAt, dateProvider);
+        }
 
         if(publishedAt != PublishedAt && PublishedAt < dateProvider.UtcNow)
         {

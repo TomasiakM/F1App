@@ -7,6 +7,8 @@ using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Application.Dtos.Common;
+using Application.Features.Tags.Queries.GetPaginated;
 
 namespace Api.Controllers;
 
@@ -27,6 +29,16 @@ public sealed class TagController : ControllerBase
     public async Task<IActionResult> GetAll()
     {
         var query = new GetAllTagsQuery();
+        var res = await _sender.Send(query);
+
+        return Ok(res);
+    }
+
+    [HttpGet("admin")]
+    [Authorize(Roles = Role.AdminRoleName)]
+    public async Task<IActionResult> GetPaginated([FromQuery] PaginationFilters filtes)
+    {
+        var query = new GetPaginatedTagsQuery(filtes);
         var res = await _sender.Send(query);
 
         return Ok(res);
