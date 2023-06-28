@@ -55,6 +55,7 @@ public sealed class Article : AggregateRoot<ArticleId>
         }
 
         Title = title;
+        Image = image;
         Description = description;
         DescriptionHtml = descriptionHtml;
         PublishedAt = publishedAt;
@@ -74,7 +75,7 @@ public sealed class Article : AggregateRoot<ArticleId>
 
     private static void ValidateDate(DateTimeOffset publishedAt, IDateProvider dateProvider)
     {
-        if (publishedAt.AddSeconds(-10) < dateProvider.UtcNow)
+        if (publishedAt.AddSeconds(10) < dateProvider.UtcNow)
         {
             throw new PublishDateCannotBeSetToPastException();
         }
