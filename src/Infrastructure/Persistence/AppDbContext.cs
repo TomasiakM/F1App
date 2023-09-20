@@ -1,7 +1,12 @@
 ﻿using Domain.Aggregates.Articles;
 using Domain.Aggregates.Comments;
+using Domain.Aggregates.Drivers;
+using Domain.Aggregates.RaceWeeks;
 using Domain.Aggregates.Roles;
+using Domain.Aggregates.Seasons;
 using Domain.Aggregates.Tags;
+using Domain.Aggregates.Teams;
+using Domain.Aggregates.Tracks;
 using Domain.Aggregates.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -14,9 +19,14 @@ internal sealed class AppDbContext : DbContext
 
     public DbSet<Article> Articles => Set<Article>();
     public DbSet<Comment> Comments => Set<Comment>();
-    public DbSet<Tag> Tags => Set<Tag>();
-    public DbSet<User> Users => Set<User>();
+    public DbSet<Driver> Drivers => Set<Driver>();
+    public DbSet<RaceWeek> RaceWeeks => Set<RaceWeek>();
     public DbSet<Role> Roles => Set<Role>();
+    public DbSet<Season> Seasons => Set<Season>();
+    public DbSet<Tag> Tags => Set<Tag>();
+    public DbSet<Team> Teams => Set<Team>();
+    public DbSet<Track> Tracks => Set<Track>();
+    public DbSet<User> Users => Set<User>();
 
     public AppDbContext(IConfiguration configuration)
     {
