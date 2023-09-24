@@ -40,10 +40,23 @@ public static class RuleBuilderExtensions
         return Regex.IsMatch(str, "^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$");
     }
 
-    public static IRuleBuilderOptions<T, string> MustBeDateTimeOffset<T>(this IRuleBuilder<T, string> ruleBuilder)
+    public static IRuleBuilderOptions<T, string?> MustBeDateTimeOffset<T>(this IRuleBuilder<T, string?> ruleBuilder)
     {
         return ruleBuilder
-            .Must(e => DateTimeOffset.TryParse(e, out var dt));
-            
+            .Must(e =>
+            {
+                if(e is not null)
+                {
+                    return DateTimeOffset.TryParse(e, out var dt);
+                }
+
+                return true;
+            });
+    }
+
+    public static IRuleBuilderOptions<T, string> MustBeDateTime<T>(this IRuleBuilder<T, string> ruleBuilder)
+    {
+        return ruleBuilder
+            .Must(e => DateTime.TryParse(e, out var dt));
     }
 }

@@ -10,4 +10,5 @@ internal static class DefaultMessages
     public static string DateTimeOffset = "Niepoprawny format daty";
     public static string MustBeGuid = "Wartość musi mieć format Guid";
     public static string AllMustBeGuid = "Wartości muszą mieć format Guid";
+    public static string ExactLength = "Pole musi mieć dokładnie {MinLength} liter/y";
 }
