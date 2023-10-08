@@ -4,6 +4,7 @@ using Application.Features.Teams.Commands.Create;
 using Application.Features.Teams.Commands.Delete;
 using Application.Features.Teams.Commands.Update;
 using Application.Features.Teams.Queries.Get;
+using Application.Features.Teams.Queries.GetAll;
 using Application.Features.Teams.Queries.GetPaginated;
 using Domain.Aggregates.Roles;
 using MapsterMapper;
@@ -30,6 +31,15 @@ public sealed class TeamController : ControllerBase
     public async Task<IActionResult> GetPaginated([FromQuery] PaginationFilters filters)
     {
         var query = new GetPaginatedTeamsQuery(filters);
+        var response = await _mediatr.Send(query);
+
+        return Ok(response);
+    }
+
+    [HttpGet("all")]
+    public async Task<IActionResult> GetAll()
+    {
+        var query = new GetAllTeamsQuery();
         var response = await _mediatr.Send(query);
 
         return Ok(response);

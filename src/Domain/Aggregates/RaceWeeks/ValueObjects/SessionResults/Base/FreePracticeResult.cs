@@ -1,11 +1,11 @@
 ﻿using Domain.Aggregates.Drivers.ValueObjects;
-using Domain.Aggregates.RaceWeeks.Enums;
+using Domain.Aggregates.Teams.ValueObjects;
 
 namespace Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.Base;
 public abstract class FreePracticeResult : SessionResult
 {
-    protected FreePracticeResult(int place, int laps, TimeSpan fastestLap, FinishType finishType, DriverId driverId)
-        : base(place, laps, fastestLap, finishType, driverId)
+    protected FreePracticeResult(int place, int laps, TimeSpan? fastestLap, DriverId driverId, TeamId teamId)
+        : base(place, laps, fastestLap, driverId, teamId)
     {
     }
 

@@ -1,7 +1,7 @@
 ﻿namespace Domain.DDD;
 public abstract class ValueObject : IEquatable<ValueObject>
 {
-    protected abstract IEnumerable<object> GetEqualityComponents();
+    protected abstract IEnumerable<object?> GetEqualityComponents();
 
     public static bool operator ==(ValueObject one, ValueObject two)
     {

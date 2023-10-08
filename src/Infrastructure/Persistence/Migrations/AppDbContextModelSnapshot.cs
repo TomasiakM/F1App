@@ -420,16 +420,22 @@ namespace Infrastructure.Persistence.Migrations
 
                     b.OwnsOne("Domain.Aggregates.RaceWeeks.Entities.Session<Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.FP1Result>", "FP1", b1 =>
                         {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
                             b1.Property<Guid>("RaceWeekId")
                                 .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Id")
-                                .HasColumnType("int");
 
                             b1.Property<DateTimeOffset>("Start")
                                 .HasColumnType("datetimeoffset");
 
-                            b1.HasKey("RaceWeekId");
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("RaceWeekId")
+                                .IsUnique();
 
                             b1.ToTable("FP1", (string)null);
 
@@ -438,8 +444,8 @@ namespace Infrastructure.Persistence.Migrations
 
                             b1.OwnsMany("Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.FP1Result", "SessionResults", b2 =>
                                 {
-                                    b2.Property<Guid>("SessionId")
-                                        .HasColumnType("uniqueidentifier");
+                                    b2.Property<int>("SessionId")
+                                        .HasColumnType("int");
 
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAdd()
@@ -450,11 +456,8 @@ namespace Infrastructure.Persistence.Migrations
                                     b2.Property<Guid>("DriverId")
                                         .HasColumnType("uniqueidentifier");
 
-                                    b2.Property<TimeSpan>("FastestLap")
+                                    b2.Property<TimeSpan?>("FastestLap")
                                         .HasColumnType("time");
-
-                                    b2.Property<int>("FinishType")
-                                        .HasColumnType("int");
 
                                     b2.Property<int>("Laps")
                                         .HasColumnType("int");
@@ -462,9 +465,14 @@ namespace Infrastructure.Persistence.Migrations
                                     b2.Property<int>("Place")
                                         .HasColumnType("int");
 
+                                    b2.Property<Guid>("TeamId")
+                                        .HasColumnType("uniqueidentifier");
+
                                     b2.HasKey("SessionId", "Id");
 
                                     b2.HasIndex("DriverId");
+
+                                    b2.HasIndex("TeamId");
 
                                     b2.ToTable("FP1Results", (string)null);
 
@@ -476,6 +484,12 @@ namespace Infrastructure.Persistence.Migrations
 
                                     b2.WithOwner()
                                         .HasForeignKey("SessionId");
+
+                                    b2.HasOne("Domain.Aggregates.Teams.Team", null)
+                                        .WithMany()
+                                        .HasForeignKey("TeamId")
+                                        .OnDelete(DeleteBehavior.Cascade)
+                                        .IsRequired();
                                 });
 
                             b1.Navigation("SessionResults");
@@ -483,16 +497,22 @@ namespace Infrastructure.Persistence.Migrations
 
                     b.OwnsOne("Domain.Aggregates.RaceWeeks.Entities.Session<Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.FP2Result>", "FP2", b1 =>
                         {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
                             b1.Property<Guid>("RaceWeekId")
                                 .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Id")
-                                .HasColumnType("int");
 
                             b1.Property<DateTimeOffset>("Start")
                                 .HasColumnType("datetimeoffset");
 
-                            b1.HasKey("RaceWeekId");
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("RaceWeekId")
+                                .IsUnique();
 
                             b1.ToTable("FP2", (string)null);
 
@@ -501,8 +521,8 @@ namespace Infrastructure.Persistence.Migrations
 
                             b1.OwnsMany("Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.FP2Result", "SessionResults", b2 =>
                                 {
-                                    b2.Property<Guid>("SessionId")
-                                        .HasColumnType("uniqueidentifier");
+                                    b2.Property<int>("SessionId")
+                                        .HasColumnType("int");
 
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAdd()
@@ -513,11 +533,8 @@ namespace Infrastructure.Persistence.Migrations
                                     b2.Property<Guid>("DriverId")
                                         .HasColumnType("uniqueidentifier");
 
-                                    b2.Property<TimeSpan>("FastestLap")
+                                    b2.Property<TimeSpan?>("FastestLap")
                                         .HasColumnType("time");
-
-                                    b2.Property<int>("FinishType")
-                                        .HasColumnType("int");
 
                                     b2.Property<int>("Laps")
                                         .HasColumnType("int");
@@ -525,9 +542,14 @@ namespace Infrastructure.Persistence.Migrations
                                     b2.Property<int>("Place")
                                         .HasColumnType("int");
 
+                                    b2.Property<Guid>("TeamId")
+                                        .HasColumnType("uniqueidentifier");
+
                                     b2.HasKey("SessionId", "Id");
 
                                     b2.HasIndex("DriverId");
+
+                                    b2.HasIndex("TeamId");
 
                                     b2.ToTable("FP2Results", (string)null);
 
@@ -539,6 +561,12 @@ namespace Infrastructure.Persistence.Migrations
 
                                     b2.WithOwner()
                                         .HasForeignKey("SessionId");
+
+                                    b2.HasOne("Domain.Aggregates.Teams.Team", null)
+                                        .WithMany()
+                                        .HasForeignKey("TeamId")
+                                        .OnDelete(DeleteBehavior.Cascade)
+                                        .IsRequired();
                                 });
 
                             b1.Navigation("SessionResults");
@@ -546,16 +574,22 @@ namespace Infrastructure.Persistence.Migrations
 
                     b.OwnsOne("Domain.Aggregates.RaceWeeks.Entities.Session<Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.FP3Result>", "FP3", b1 =>
                         {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
                             b1.Property<Guid>("RaceWeekId")
                                 .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Id")
-                                .HasColumnType("int");
 
                             b1.Property<DateTimeOffset>("Start")
                                 .HasColumnType("datetimeoffset");
 
-                            b1.HasKey("RaceWeekId");
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("RaceWeekId")
+                                .IsUnique();
 
                             b1.ToTable("FP3", (string)null);
 
@@ -564,8 +598,8 @@ namespace Infrastructure.Persistence.Migrations
 
                             b1.OwnsMany("Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.FP3Result", "SessionResults", b2 =>
                                 {
-                                    b2.Property<Guid>("SessionId")
-                                        .HasColumnType("uniqueidentifier");
+                                    b2.Property<int>("SessionId")
+                                        .HasColumnType("int");
 
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAdd()
@@ -576,11 +610,8 @@ namespace Infrastructure.Persistence.Migrations
                                     b2.Property<Guid>("DriverId")
                                         .HasColumnType("uniqueidentifier");
 
-                                    b2.Property<TimeSpan>("FastestLap")
+                                    b2.Property<TimeSpan?>("FastestLap")
                                         .HasColumnType("time");
-
-                                    b2.Property<int>("FinishType")
-                                        .HasColumnType("int");
 
                                     b2.Property<int>("Laps")
                                         .HasColumnType("int");
@@ -588,9 +619,14 @@ namespace Infrastructure.Persistence.Migrations
                                     b2.Property<int>("Place")
                                         .HasColumnType("int");
 
+                                    b2.Property<Guid>("TeamId")
+                                        .HasColumnType("uniqueidentifier");
+
                                     b2.HasKey("SessionId", "Id");
 
                                     b2.HasIndex("DriverId");
+
+                                    b2.HasIndex("TeamId");
 
                                     b2.ToTable("FP3Results", (string)null);
 
@@ -602,6 +638,12 @@ namespace Infrastructure.Persistence.Migrations
 
                                     b2.WithOwner()
                                         .HasForeignKey("SessionId");
+
+                                    b2.HasOne("Domain.Aggregates.Teams.Team", null)
+                                        .WithMany()
+                                        .HasForeignKey("TeamId")
+                                        .OnDelete(DeleteBehavior.Cascade)
+                                        .IsRequired();
                                 });
 
                             b1.Navigation("SessionResults");
@@ -609,16 +651,22 @@ namespace Infrastructure.Persistence.Migrations
 
                     b.OwnsOne("Domain.Aggregates.RaceWeeks.Entities.Session<Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.RaceQualificationResult>", "RaceQualifications", b1 =>
                         {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
                             b1.Property<Guid>("RaceWeekId")
                                 .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Id")
-                                .HasColumnType("int");
 
                             b1.Property<DateTimeOffset>("Start")
                                 .HasColumnType("datetimeoffset");
 
-                            b1.HasKey("RaceWeekId");
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("RaceWeekId")
+                                .IsUnique();
 
                             b1.ToTable("RaceQualifications", (string)null);
 
@@ -627,8 +675,8 @@ namespace Infrastructure.Persistence.Migrations
 
                             b1.OwnsMany("Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.RaceQualificationResult", "SessionResults", b2 =>
                                 {
-                                    b2.Property<Guid>("SessionId")
-                                        .HasColumnType("uniqueidentifier");
+                                    b2.Property<int>("SessionId")
+                                        .HasColumnType("int");
 
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAdd()
@@ -642,7 +690,7 @@ namespace Infrastructure.Persistence.Migrations
                                     b2.Property<int>("Place")
                                         .HasColumnType("int");
 
-                                    b2.Property<TimeSpan>("Q1Time")
+                                    b2.Property<TimeSpan?>("Q1Time")
                                         .HasColumnType("time");
 
                                     b2.Property<TimeSpan?>("Q2Time")
@@ -651,9 +699,14 @@ namespace Infrastructure.Persistence.Migrations
                                     b2.Property<TimeSpan?>("Q3Time")
                                         .HasColumnType("time");
 
+                                    b2.Property<Guid>("TeamId")
+                                        .HasColumnType("uniqueidentifier");
+
                                     b2.HasKey("SessionId", "Id");
 
                                     b2.HasIndex("DriverId");
+
+                                    b2.HasIndex("TeamId");
 
                                     b2.ToTable("RaceQualificationsResults", (string)null);
 
@@ -665,6 +718,12 @@ namespace Infrastructure.Persistence.Migrations
 
                                     b2.WithOwner()
                                         .HasForeignKey("SessionId");
+
+                                    b2.HasOne("Domain.Aggregates.Teams.Team", null)
+                                        .WithMany()
+                                        .HasForeignKey("TeamId")
+                                        .OnDelete(DeleteBehavior.Cascade)
+                                        .IsRequired();
                                 });
 
                             b1.Navigation("SessionResults");
@@ -672,16 +731,22 @@ namespace Infrastructure.Persistence.Migrations
 
                     b.OwnsOne("Domain.Aggregates.RaceWeeks.Entities.Session<Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.RaceResult>", "Race", b1 =>
                         {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
                             b1.Property<Guid>("RaceWeekId")
                                 .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Id")
-                                .HasColumnType("int");
 
                             b1.Property<DateTimeOffset>("Start")
                                 .HasColumnType("datetimeoffset");
 
-                            b1.HasKey("RaceWeekId");
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("RaceWeekId")
+                                .IsUnique();
 
                             b1.ToTable("Races", (string)null);
 
@@ -690,8 +755,8 @@ namespace Infrastructure.Persistence.Migrations
 
                             b1.OwnsMany("Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.RaceResult", "SessionResults", b2 =>
                                 {
-                                    b2.Property<Guid>("SessionId")
-                                        .HasColumnType("uniqueidentifier");
+                                    b2.Property<int>("SessionId")
+                                        .HasColumnType("int");
 
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAdd()
@@ -702,10 +767,10 @@ namespace Infrastructure.Persistence.Migrations
                                     b2.Property<Guid>("DriverId")
                                         .HasColumnType("uniqueidentifier");
 
-                                    b2.Property<TimeSpan>("FastestLap")
+                                    b2.Property<TimeSpan?>("FastestLap")
                                         .HasColumnType("time");
 
-                                    b2.Property<TimeSpan>("FinishTime")
+                                    b2.Property<TimeSpan?>("FinishTime")
                                         .HasColumnType("time");
 
                                     b2.Property<int>("FinishType")
@@ -723,9 +788,14 @@ namespace Infrastructure.Persistence.Migrations
                                     b2.Property<int>("StartPosition")
                                         .HasColumnType("int");
 
+                                    b2.Property<Guid>("TeamId")
+                                        .HasColumnType("uniqueidentifier");
+
                                     b2.HasKey("SessionId", "Id");
 
                                     b2.HasIndex("DriverId");
+
+                                    b2.HasIndex("TeamId");
 
                                     b2.ToTable("RaceResults", (string)null);
 
@@ -737,6 +807,12 @@ namespace Infrastructure.Persistence.Migrations
 
                                     b2.WithOwner()
                                         .HasForeignKey("SessionId");
+
+                                    b2.HasOne("Domain.Aggregates.Teams.Team", null)
+                                        .WithMany()
+                                        .HasForeignKey("TeamId")
+                                        .OnDelete(DeleteBehavior.Cascade)
+                                        .IsRequired();
                                 });
 
                             b1.Navigation("SessionResults");
@@ -744,16 +820,22 @@ namespace Infrastructure.Persistence.Migrations
 
                     b.OwnsOne("Domain.Aggregates.RaceWeeks.Entities.Session<Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.SprintQualificationResult>", "SprintQualifications", b1 =>
                         {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
                             b1.Property<Guid>("RaceWeekId")
                                 .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Id")
-                                .HasColumnType("int");
 
                             b1.Property<DateTimeOffset>("Start")
                                 .HasColumnType("datetimeoffset");
 
-                            b1.HasKey("RaceWeekId");
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("RaceWeekId")
+                                .IsUnique();
 
                             b1.ToTable("SprintQualifications", (string)null);
 
@@ -762,8 +844,8 @@ namespace Infrastructure.Persistence.Migrations
 
                             b1.OwnsMany("Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.SprintQualificationResult", "SessionResults", b2 =>
                                 {
-                                    b2.Property<Guid>("SessionId")
-                                        .HasColumnType("uniqueidentifier");
+                                    b2.Property<int>("SessionId")
+                                        .HasColumnType("int");
 
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAdd()
@@ -777,7 +859,7 @@ namespace Infrastructure.Persistence.Migrations
                                     b2.Property<int>("Place")
                                         .HasColumnType("int");
 
-                                    b2.Property<TimeSpan>("Q1Time")
+                                    b2.Property<TimeSpan?>("Q1Time")
                                         .HasColumnType("time");
 
                                     b2.Property<TimeSpan?>("Q2Time")
@@ -786,9 +868,14 @@ namespace Infrastructure.Persistence.Migrations
                                     b2.Property<TimeSpan?>("Q3Time")
                                         .HasColumnType("time");
 
+                                    b2.Property<Guid>("TeamId")
+                                        .HasColumnType("uniqueidentifier");
+
                                     b2.HasKey("SessionId", "Id");
 
                                     b2.HasIndex("DriverId");
+
+                                    b2.HasIndex("TeamId");
 
                                     b2.ToTable("SprintQualificationResults", (string)null);
 
@@ -800,6 +887,12 @@ namespace Infrastructure.Persistence.Migrations
 
                                     b2.WithOwner()
                                         .HasForeignKey("SessionId");
+
+                                    b2.HasOne("Domain.Aggregates.Teams.Team", null)
+                                        .WithMany()
+                                        .HasForeignKey("TeamId")
+                                        .OnDelete(DeleteBehavior.Cascade)
+                                        .IsRequired();
                                 });
 
                             b1.Navigation("SessionResults");
@@ -807,16 +900,22 @@ namespace Infrastructure.Persistence.Migrations
 
                     b.OwnsOne("Domain.Aggregates.RaceWeeks.Entities.Session<Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.SprintResult>", "Sprint", b1 =>
                         {
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
                             b1.Property<Guid>("RaceWeekId")
                                 .HasColumnType("uniqueidentifier");
-
-                            b1.Property<int>("Id")
-                                .HasColumnType("int");
 
                             b1.Property<DateTimeOffset>("Start")
                                 .HasColumnType("datetimeoffset");
 
-                            b1.HasKey("RaceWeekId");
+                            b1.HasKey("Id");
+
+                            b1.HasIndex("RaceWeekId")
+                                .IsUnique();
 
                             b1.ToTable("Sprints", (string)null);
 
@@ -825,8 +924,8 @@ namespace Infrastructure.Persistence.Migrations
 
                             b1.OwnsMany("Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.SprintResult", "SessionResults", b2 =>
                                 {
-                                    b2.Property<Guid>("SessionId")
-                                        .HasColumnType("uniqueidentifier");
+                                    b2.Property<int>("SessionId")
+                                        .HasColumnType("int");
 
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAdd()
@@ -837,10 +936,10 @@ namespace Infrastructure.Persistence.Migrations
                                     b2.Property<Guid>("DriverId")
                                         .HasColumnType("uniqueidentifier");
 
-                                    b2.Property<TimeSpan>("FastestLap")
+                                    b2.Property<TimeSpan?>("FastestLap")
                                         .HasColumnType("time");
 
-                                    b2.Property<TimeSpan>("FinishTime")
+                                    b2.Property<TimeSpan?>("FinishTime")
                                         .HasColumnType("time");
 
                                     b2.Property<int>("FinishType")
@@ -858,9 +957,14 @@ namespace Infrastructure.Persistence.Migrations
                                     b2.Property<int>("StartPosition")
                                         .HasColumnType("int");
 
+                                    b2.Property<Guid>("TeamId")
+                                        .HasColumnType("uniqueidentifier");
+
                                     b2.HasKey("SessionId", "Id");
 
                                     b2.HasIndex("DriverId");
+
+                                    b2.HasIndex("TeamId");
 
                                     b2.ToTable("SprintResults", (string)null);
 
@@ -872,6 +976,12 @@ namespace Infrastructure.Persistence.Migrations
 
                                     b2.WithOwner()
                                         .HasForeignKey("SessionId");
+
+                                    b2.HasOne("Domain.Aggregates.Teams.Team", null)
+                                        .WithMany()
+                                        .HasForeignKey("TeamId")
+                                        .OnDelete(DeleteBehavior.Cascade)
+                                        .IsRequired();
                                 });
 
                             b1.Navigation("SessionResults");

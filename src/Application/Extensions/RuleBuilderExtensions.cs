@@ -45,7 +45,7 @@ public static class RuleBuilderExtensions
         return ruleBuilder
             .Must(e =>
             {
-                if(e is not null)
+                if(!string.IsNullOrEmpty(e))
                 {
                     return DateTimeOffset.TryParse(e, out var dt);
                 }
@@ -54,9 +54,31 @@ public static class RuleBuilderExtensions
             });
     }
 
-    public static IRuleBuilderOptions<T, string> MustBeDateTime<T>(this IRuleBuilder<T, string> ruleBuilder)
+    public static IRuleBuilderOptions<T, string?> MustBeDateTime<T>(this IRuleBuilder<T, string?> ruleBuilder)
     {
         return ruleBuilder
-            .Must(e => DateTime.TryParse(e, out var dt));
+            .Must(e =>
+            {
+                if (!string.IsNullOrEmpty(e))
+                {
+                    return DateTime.TryParse(e, out var dt);
+                }
+
+                return true;
+            });
+    }
+
+    public static IRuleBuilderOptions<T, string?> MustBeTimeSpan<T>(this IRuleBuilder<T, string?> ruleBuilder)
+    {
+        return ruleBuilder
+            .Must(e =>
+            {
+                if (!string.IsNullOrEmpty(e))
+                {
+                    return TimeSpan.TryParse(e, out var dt);
+                }
+
+                return true;
+            });
     }
 }

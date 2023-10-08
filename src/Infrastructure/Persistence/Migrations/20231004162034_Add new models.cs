@@ -104,13 +104,14 @@ namespace Infrastructure.Persistence.Migrations
                 name: "FP1",
                 columns: table => new
                 {
-                    RaceWeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Start = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Start = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    RaceWeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FP1", x => x.RaceWeekId);
+                    table.PrimaryKey("PK_FP1", x => x.Id);
                     table.ForeignKey(
                         name: "FK_FP1_RaceWeeks_RaceWeekId",
                         column: x => x.RaceWeekId,
@@ -123,13 +124,14 @@ namespace Infrastructure.Persistence.Migrations
                 name: "FP2",
                 columns: table => new
                 {
-                    RaceWeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Start = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Start = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    RaceWeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FP2", x => x.RaceWeekId);
+                    table.PrimaryKey("PK_FP2", x => x.Id);
                     table.ForeignKey(
                         name: "FK_FP2_RaceWeeks_RaceWeekId",
                         column: x => x.RaceWeekId,
@@ -142,13 +144,14 @@ namespace Infrastructure.Persistence.Migrations
                 name: "FP3",
                 columns: table => new
                 {
-                    RaceWeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Start = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Start = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    RaceWeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FP3", x => x.RaceWeekId);
+                    table.PrimaryKey("PK_FP3", x => x.Id);
                     table.ForeignKey(
                         name: "FK_FP3_RaceWeeks_RaceWeekId",
                         column: x => x.RaceWeekId,
@@ -161,13 +164,14 @@ namespace Infrastructure.Persistence.Migrations
                 name: "RaceQualifications",
                 columns: table => new
                 {
-                    RaceWeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Start = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Start = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    RaceWeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RaceQualifications", x => x.RaceWeekId);
+                    table.PrimaryKey("PK_RaceQualifications", x => x.Id);
                     table.ForeignKey(
                         name: "FK_RaceQualifications_RaceWeeks_RaceWeekId",
                         column: x => x.RaceWeekId,
@@ -180,13 +184,14 @@ namespace Infrastructure.Persistence.Migrations
                 name: "Races",
                 columns: table => new
                 {
-                    RaceWeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Start = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Start = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    RaceWeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Races", x => x.RaceWeekId);
+                    table.PrimaryKey("PK_Races", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Races_RaceWeeks_RaceWeekId",
                         column: x => x.RaceWeekId,
@@ -199,13 +204,14 @@ namespace Infrastructure.Persistence.Migrations
                 name: "SprintQualifications",
                 columns: table => new
                 {
-                    RaceWeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Start = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Start = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    RaceWeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SprintQualifications", x => x.RaceWeekId);
+                    table.PrimaryKey("PK_SprintQualifications", x => x.Id);
                     table.ForeignKey(
                         name: "FK_SprintQualifications_RaceWeeks_RaceWeekId",
                         column: x => x.RaceWeekId,
@@ -218,13 +224,14 @@ namespace Infrastructure.Persistence.Migrations
                 name: "Sprints",
                 columns: table => new
                 {
-                    RaceWeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Start = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Start = table.Column<DateTimeOffset>(type: "datetimeoffset", nullable: false),
+                    RaceWeekId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Sprints", x => x.RaceWeekId);
+                    table.PrimaryKey("PK_Sprints", x => x.Id);
                     table.ForeignKey(
                         name: "FK_Sprints_RaceWeeks_RaceWeekId",
                         column: x => x.RaceWeekId,
@@ -237,18 +244,18 @@ namespace Infrastructure.Persistence.Migrations
                 name: "FP1Results",
                 columns: table => new
                 {
-                    SessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SessionFP1ResultId = table.Column<int>(name: "Session<FP1Result>Id", type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Place = table.Column<int>(type: "int", nullable: false),
                     Laps = table.Column<int>(type: "int", nullable: false),
-                    FastestLap = table.Column<TimeSpan>(type: "time", nullable: false),
-                    FinishType = table.Column<int>(type: "int", nullable: false),
-                    DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    FastestLap = table.Column<TimeSpan>(type: "time", nullable: true),
+                    DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FP1Results", x => new { x.SessionId, x.Id });
+                    table.PrimaryKey("PK_FP1Results", x => new { x.SessionFP1ResultId, x.Id });
                     table.ForeignKey(
                         name: "FK_FP1Results_Drivers_DriverId",
                         column: x => x.DriverId,
@@ -256,10 +263,16 @@ namespace Infrastructure.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FP1Results_FP1_SessionId",
-                        column: x => x.SessionId,
+                        name: "FK_FP1Results_FP1_Session<FP1Result>Id",
+                        column: x => x.SessionFP1ResultId,
                         principalTable: "FP1",
-                        principalColumn: "RaceWeekId",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FP1Results_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -267,18 +280,18 @@ namespace Infrastructure.Persistence.Migrations
                 name: "FP2Results",
                 columns: table => new
                 {
-                    SessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SessionFP2ResultId = table.Column<int>(name: "Session<FP2Result>Id", type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Place = table.Column<int>(type: "int", nullable: false),
                     Laps = table.Column<int>(type: "int", nullable: false),
-                    FastestLap = table.Column<TimeSpan>(type: "time", nullable: false),
-                    FinishType = table.Column<int>(type: "int", nullable: false),
-                    DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    FastestLap = table.Column<TimeSpan>(type: "time", nullable: true),
+                    DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FP2Results", x => new { x.SessionId, x.Id });
+                    table.PrimaryKey("PK_FP2Results", x => new { x.SessionFP2ResultId, x.Id });
                     table.ForeignKey(
                         name: "FK_FP2Results_Drivers_DriverId",
                         column: x => x.DriverId,
@@ -286,10 +299,16 @@ namespace Infrastructure.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FP2Results_FP2_SessionId",
-                        column: x => x.SessionId,
+                        name: "FK_FP2Results_FP2_Session<FP2Result>Id",
+                        column: x => x.SessionFP2ResultId,
                         principalTable: "FP2",
-                        principalColumn: "RaceWeekId",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FP2Results_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -297,18 +316,18 @@ namespace Infrastructure.Persistence.Migrations
                 name: "FP3Results",
                 columns: table => new
                 {
-                    SessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SessionFP3ResultId = table.Column<int>(name: "Session<FP3Result>Id", type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Place = table.Column<int>(type: "int", nullable: false),
                     Laps = table.Column<int>(type: "int", nullable: false),
-                    FastestLap = table.Column<TimeSpan>(type: "time", nullable: false),
-                    FinishType = table.Column<int>(type: "int", nullable: false),
-                    DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    FastestLap = table.Column<TimeSpan>(type: "time", nullable: true),
+                    DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_FP3Results", x => new { x.SessionId, x.Id });
+                    table.PrimaryKey("PK_FP3Results", x => new { x.SessionFP3ResultId, x.Id });
                     table.ForeignKey(
                         name: "FK_FP3Results_Drivers_DriverId",
                         column: x => x.DriverId,
@@ -316,10 +335,16 @@ namespace Infrastructure.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_FP3Results_FP3_SessionId",
-                        column: x => x.SessionId,
+                        name: "FK_FP3Results_FP3_Session<FP3Result>Id",
+                        column: x => x.SessionFP3ResultId,
                         principalTable: "FP3",
-                        principalColumn: "RaceWeekId",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_FP3Results_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -327,18 +352,19 @@ namespace Infrastructure.Persistence.Migrations
                 name: "RaceQualificationsResults",
                 columns: table => new
                 {
-                    SessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SessionRaceQualificationResultId = table.Column<int>(name: "Session<RaceQualificationResult>Id", type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Place = table.Column<int>(type: "int", nullable: false),
-                    Q1Time = table.Column<TimeSpan>(type: "time", nullable: false),
+                    Q1Time = table.Column<TimeSpan>(type: "time", nullable: true),
                     Q2Time = table.Column<TimeSpan>(type: "time", nullable: true),
                     Q3Time = table.Column<TimeSpan>(type: "time", nullable: true),
-                    DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RaceQualificationsResults", x => new { x.SessionId, x.Id });
+                    table.PrimaryKey("PK_RaceQualificationsResults", x => new { x.SessionRaceQualificationResultId, x.Id });
                     table.ForeignKey(
                         name: "FK_RaceQualificationsResults_Drivers_DriverId",
                         column: x => x.DriverId,
@@ -346,10 +372,16 @@ namespace Infrastructure.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RaceQualificationsResults_RaceQualifications_SessionId",
-                        column: x => x.SessionId,
+                        name: "FK_RaceQualificationsResults_RaceQualifications_Session<RaceQualificationResult>Id",
+                        column: x => x.SessionRaceQualificationResultId,
                         principalTable: "RaceQualifications",
-                        principalColumn: "RaceWeekId",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RaceQualificationsResults_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -357,21 +389,22 @@ namespace Infrastructure.Persistence.Migrations
                 name: "RaceResults",
                 columns: table => new
                 {
-                    SessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SessionRaceResultId = table.Column<int>(name: "Session<RaceResult>Id", type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StartPosition = table.Column<int>(type: "int", nullable: false),
-                    FinishTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    FinishTime = table.Column<TimeSpan>(type: "time", nullable: true),
+                    FinishType = table.Column<int>(type: "int", nullable: false),
                     Points = table.Column<float>(type: "real", nullable: false),
                     Place = table.Column<int>(type: "int", nullable: false),
                     Laps = table.Column<int>(type: "int", nullable: false),
-                    FastestLap = table.Column<TimeSpan>(type: "time", nullable: false),
-                    FinishType = table.Column<int>(type: "int", nullable: false),
-                    DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    FastestLap = table.Column<TimeSpan>(type: "time", nullable: true),
+                    DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_RaceResults", x => new { x.SessionId, x.Id });
+                    table.PrimaryKey("PK_RaceResults", x => new { x.SessionRaceResultId, x.Id });
                     table.ForeignKey(
                         name: "FK_RaceResults_Drivers_DriverId",
                         column: x => x.DriverId,
@@ -379,10 +412,16 @@ namespace Infrastructure.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_RaceResults_Races_SessionId",
-                        column: x => x.SessionId,
+                        name: "FK_RaceResults_Races_Session<RaceResult>Id",
+                        column: x => x.SessionRaceResultId,
                         principalTable: "Races",
-                        principalColumn: "RaceWeekId",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RaceResults_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -390,18 +429,19 @@ namespace Infrastructure.Persistence.Migrations
                 name: "SprintQualificationResults",
                 columns: table => new
                 {
-                    SessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SessionSprintQualificationResultId = table.Column<int>(name: "Session<SprintQualificationResult>Id", type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Place = table.Column<int>(type: "int", nullable: false),
-                    Q1Time = table.Column<TimeSpan>(type: "time", nullable: false),
+                    Q1Time = table.Column<TimeSpan>(type: "time", nullable: true),
                     Q2Time = table.Column<TimeSpan>(type: "time", nullable: true),
                     Q3Time = table.Column<TimeSpan>(type: "time", nullable: true),
-                    DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SprintQualificationResults", x => new { x.SessionId, x.Id });
+                    table.PrimaryKey("PK_SprintQualificationResults", x => new { x.SessionSprintQualificationResultId, x.Id });
                     table.ForeignKey(
                         name: "FK_SprintQualificationResults_Drivers_DriverId",
                         column: x => x.DriverId,
@@ -409,10 +449,16 @@ namespace Infrastructure.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SprintQualificationResults_SprintQualifications_SessionId",
-                        column: x => x.SessionId,
+                        name: "FK_SprintQualificationResults_SprintQualifications_Session<SprintQualificationResult>Id",
+                        column: x => x.SessionSprintQualificationResultId,
                         principalTable: "SprintQualifications",
-                        principalColumn: "RaceWeekId",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SprintQualificationResults_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -420,21 +466,22 @@ namespace Infrastructure.Persistence.Migrations
                 name: "SprintResults",
                 columns: table => new
                 {
-                    SessionId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    SessionSprintResultId = table.Column<int>(name: "Session<SprintResult>Id", type: "int", nullable: false),
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     StartPosition = table.Column<int>(type: "int", nullable: false),
-                    FinishTime = table.Column<TimeSpan>(type: "time", nullable: false),
+                    FinishTime = table.Column<TimeSpan>(type: "time", nullable: true),
+                    FinishType = table.Column<int>(type: "int", nullable: false),
                     Points = table.Column<float>(type: "real", nullable: false),
                     Place = table.Column<int>(type: "int", nullable: false),
                     Laps = table.Column<int>(type: "int", nullable: false),
-                    FastestLap = table.Column<TimeSpan>(type: "time", nullable: false),
-                    FinishType = table.Column<int>(type: "int", nullable: false),
-                    DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
+                    FastestLap = table.Column<TimeSpan>(type: "time", nullable: true),
+                    DriverId = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    TeamId = table.Column<Guid>(type: "uniqueidentifier", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SprintResults", x => new { x.SessionId, x.Id });
+                    table.PrimaryKey("PK_SprintResults", x => new { x.SessionSprintResultId, x.Id });
                     table.ForeignKey(
                         name: "FK_SprintResults_Drivers_DriverId",
                         column: x => x.DriverId,
@@ -442,10 +489,16 @@ namespace Infrastructure.Persistence.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_SprintResults_Sprints_SessionId",
-                        column: x => x.SessionId,
+                        name: "FK_SprintResults_Sprints_Session<SprintResult>Id",
+                        column: x => x.SessionSprintResultId,
                         principalTable: "Sprints",
-                        principalColumn: "RaceWeekId",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_SprintResults_Teams_TeamId",
+                        column: x => x.TeamId,
+                        principalTable: "Teams",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -456,9 +509,26 @@ namespace Infrastructure.Persistence.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_FP1_RaceWeekId",
+                table: "FP1",
+                column: "RaceWeekId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_FP1Results_DriverId",
                 table: "FP1Results",
                 column: "DriverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FP1Results_TeamId",
+                table: "FP1Results",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FP2_RaceWeekId",
+                table: "FP2",
+                column: "RaceWeekId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_FP2Results_DriverId",
@@ -466,9 +536,31 @@ namespace Infrastructure.Persistence.Migrations
                 column: "DriverId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_FP2Results_TeamId",
+                table: "FP2Results",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FP3_RaceWeekId",
+                table: "FP3",
+                column: "RaceWeekId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_FP3Results_DriverId",
                 table: "FP3Results",
                 column: "DriverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_FP3Results_TeamId",
+                table: "FP3Results",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RaceQualifications_RaceWeekId",
+                table: "RaceQualifications",
+                column: "RaceWeekId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_RaceQualificationsResults_DriverId",
@@ -476,9 +568,25 @@ namespace Infrastructure.Persistence.Migrations
                 column: "DriverId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_RaceQualificationsResults_TeamId",
+                table: "RaceQualificationsResults",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_RaceResults_DriverId",
                 table: "RaceResults",
                 column: "DriverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_RaceResults_TeamId",
+                table: "RaceResults",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Races_RaceWeekId",
+                table: "Races",
+                column: "RaceWeekId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_RaceWeeks_SeasonId",
@@ -509,9 +617,31 @@ namespace Infrastructure.Persistence.Migrations
                 column: "DriverId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_SprintQualificationResults_TeamId",
+                table: "SprintQualificationResults",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SprintQualifications_RaceWeekId",
+                table: "SprintQualifications",
+                column: "RaceWeekId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_SprintResults_DriverId",
                 table: "SprintResults",
                 column: "DriverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SprintResults_TeamId",
+                table: "SprintResults",
+                column: "TeamId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sprints_RaceWeekId",
+                table: "Sprints",
+                column: "RaceWeekId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Teams_Slug",
@@ -551,9 +681,6 @@ namespace Infrastructure.Persistence.Migrations
                 name: "SprintResults");
 
             migrationBuilder.DropTable(
-                name: "Teams");
-
-            migrationBuilder.DropTable(
                 name: "FP1");
 
             migrationBuilder.DropTable(
@@ -576,6 +703,9 @@ namespace Infrastructure.Persistence.Migrations
 
             migrationBuilder.DropTable(
                 name: "Sprints");
+
+            migrationBuilder.DropTable(
+                name: "Teams");
 
             migrationBuilder.DropTable(
                 name: "RaceWeeks");

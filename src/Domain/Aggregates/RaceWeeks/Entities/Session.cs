@@ -15,4 +15,14 @@ public sealed class Session<TSessionResult> : Entity<int>
     }
 
     private Session() : base(0) { }
+
+    public void SetSessionStart(DateTimeOffset start)
+    {
+        Start = start;
+    }
+
+    public void SetSessionResults(List<TSessionResult> sessionResults)
+    {
+        _sessionResults = sessionResults;
+    }
 }

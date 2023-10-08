@@ -11,4 +11,5 @@ internal static class DefaultMessages
     public static string MustBeGuid = "Wartość musi mieć format Guid";
     public static string AllMustBeGuid = "Wartości muszą mieć format Guid";
     public static string ExactLength = "Pole musi mieć dokładnie {MinLength} liter/y";
+    public static string MustBeTimeSpan = "Pole musi mieć dany format: HH:mm:ss:fff";
 }

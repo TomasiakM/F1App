@@ -49,9 +49,31 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
         FP1 = new(start);    
     }
 
+    public void UpdateFp1Session(DateTimeOffset start)
+    {
+        if(FP1 is null)
+        {
+            FP1 = new(start);
+            return;
+        }
+
+        FP1.SetSessionStart(start);
+    }
+
     public void CreateFp2Session(DateTimeOffset start)
     {
         FP2 = new(start);
+    }
+
+    public void UpdateFp2Session(DateTimeOffset start)
+    {
+        if (FP2 is null)
+        {
+            FP2 = new(start);
+            return;
+        }
+
+        FP2.SetSessionStart(start);
     }
 
     public void CreateFp3Session(DateTimeOffset start)
@@ -59,9 +81,31 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
         FP3 = new(start);
     }
 
+    public void UpdateFp3Session(DateTimeOffset start)
+    {
+        if (FP3 is null)
+        {
+            FP3 = new(start);
+            return;
+        }
+
+        FP3.SetSessionStart(start);
+    }
+
     public void CreateSprintQualificationSession(DateTimeOffset start)
     {
         SprintQualifications = new(start);
+    }
+
+    public void UpdateSprintQualificationSession(DateTimeOffset start)
+    {
+        if (SprintQualifications is null)
+        {
+            SprintQualifications = new(start);
+            return;
+        }
+
+        SprintQualifications.SetSessionStart(start);
     }
 
     public void CreateSprintSession(DateTimeOffset start)
@@ -69,9 +113,31 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
         Sprint = new(start);
     }
 
+    public void UpdateSprintSession(DateTimeOffset start)
+    {
+        if (Sprint is null)
+        {
+            Sprint = new(start);
+            return;
+        }
+
+        Sprint.SetSessionStart(start);
+    }
+
     public void CreateRaceQualificationSession(DateTimeOffset start)
     {
         RaceQualifications = new(start);
+    }
+
+    public void UpdateRaceQualificationSession(DateTimeOffset start)
+    {
+        if (RaceQualifications is null)
+        {
+            RaceQualifications = new(start);
+            return;
+        }
+
+        RaceQualifications.SetSessionStart(start);
     }
 
     public void CreateRaceSession(DateTimeOffset start)
@@ -79,7 +145,18 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
         Race = new(start);
     }
 
-#pragma warning disable CS8618
+    public void UpdateRaceSession(DateTimeOffset start)
+    {
+        if (Race is null)
+        {
+            Race = new(start);
+            return;
+        }
+
+        Race.SetSessionStart(start);
+    }
+
+    #pragma warning disable CS8618
     private RaceWeek() : base(RaceWeekId.Create()) { }
     #pragma warning restore CS8618
 }

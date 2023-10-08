@@ -1,5 +1,4 @@
-﻿using Domain.Aggregates.Articles;
-using Domain.Aggregates.Drivers;
+﻿using Domain.Aggregates.Drivers;
 using Domain.Aggregates.Drivers.ValueObjects;
 using Domain.Aggregates.RaceWeeks;
 using Domain.Aggregates.RaceWeeks.Entities;
@@ -7,6 +6,8 @@ using Domain.Aggregates.RaceWeeks.ValueObjects;
 using Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults;
 using Domain.Aggregates.Seasons;
 using Domain.Aggregates.Seasons.ValueObjects;
+using Domain.Aggregates.Teams;
+using Domain.Aggregates.Teams.ValueObjects;
 using Domain.Aggregates.Tracks;
 using Domain.Aggregates.Tracks.ValueObjects;
 using Microsoft.EntityFrameworkCore;
@@ -39,6 +40,7 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
             .WithMany()
             .HasForeignKey(e => e.TrackId);
 
+
         builder.Property(e => e.SeasonId)
             .HasConversion(
                 e => e.Value,
@@ -60,6 +62,8 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
 
     private void ConfigureFP1(OwnedNavigationBuilder<RaceWeek, Session<FP1Result>> builder)
     {
+        builder.HasKey(e => e.Id);
+
         builder.ToTable("FP1");
         builder.WithOwner()
             .HasForeignKey("RaceWeekId");
@@ -68,7 +72,7 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
         {
             srb.ToTable("FP1Results");
             srb.WithOwner()
-                .HasForeignKey("SessionId");
+                .HasForeignKey();
 
             srb.Property(e => e.DriverId)
                 .HasConversion(
@@ -77,6 +81,14 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
             srb.HasOne<Driver>()
                 .WithMany()
                 .HasForeignKey(e => e.DriverId);
+
+            srb.Property(e => e.TeamId)
+                .HasConversion(
+                    e => e.Value,
+                    e => TeamId.Create(e));
+            srb.HasOne<Team>()
+                .WithMany()
+                .HasForeignKey(e => e.TeamId);
         });
 
         builder.Navigation(e => e.SessionResults).Metadata.SetField("_sessionResults");
@@ -85,6 +97,8 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
 
     private void ConfigureFP2(OwnedNavigationBuilder<RaceWeek, Session<FP2Result>> builder)
     {
+        builder.HasKey(e => e.Id);
+
         builder.ToTable("FP2");
         builder.WithOwner()
             .HasForeignKey("RaceWeekId");
@@ -102,6 +116,14 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
             srb.HasOne<Driver>()
                 .WithMany()
                 .HasForeignKey(e => e.DriverId);
+
+            srb.Property(e => e.TeamId)
+                .HasConversion(
+                    e => e.Value,
+                    e => TeamId.Create(e));
+            srb.HasOne<Team>()
+                .WithMany()
+                .HasForeignKey(e => e.TeamId);
         });
 
         builder.Navigation(e => e.SessionResults).Metadata.SetField("_sessionResults");
@@ -110,6 +132,8 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
 
     private void ConfigureFP3(OwnedNavigationBuilder<RaceWeek, Session<FP3Result>> builder)
     {
+        builder.HasKey(e => e.Id);
+
         builder.ToTable("FP3");
         builder.WithOwner()
             .HasForeignKey("RaceWeekId");
@@ -127,6 +151,14 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
             srb.HasOne<Driver>()
                 .WithMany()
                 .HasForeignKey(e => e.DriverId);
+
+            srb.Property(e => e.TeamId)
+                .HasConversion(
+                    e => e.Value,
+                    e => TeamId.Create(e));
+            srb.HasOne<Team>()
+                .WithMany()
+                .HasForeignKey(e => e.TeamId);
         });
 
         builder.Navigation(e => e.SessionResults).Metadata.SetField("_sessionResults");
@@ -135,6 +167,8 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
 
     private void ConfigureSprintQualifications(OwnedNavigationBuilder<RaceWeek, Session<SprintQualificationResult>> builder)
     {
+        builder.HasKey(e => e.Id);
+
         builder.ToTable("SprintQualifications");
         builder.WithOwner()
             .HasForeignKey("RaceWeekId");
@@ -152,6 +186,14 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
             srb.HasOne<Driver>()
                 .WithMany()
                 .HasForeignKey(e => e.DriverId);
+
+            srb.Property(e => e.TeamId)
+                .HasConversion(
+                    e => e.Value,
+                    e => TeamId.Create(e));
+            srb.HasOne<Team>()
+                .WithMany()
+                .HasForeignKey(e => e.TeamId);
         });
 
         builder.Navigation(e => e.SessionResults).Metadata.SetField("_sessionResults");
@@ -160,6 +202,8 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
 
     private void ConfigureSprint(OwnedNavigationBuilder<RaceWeek, Session<SprintResult>> builder)
     {
+        builder.HasKey(e => e.Id);
+
         builder.ToTable("Sprints");
         builder.WithOwner()
             .HasForeignKey("RaceWeekId");
@@ -177,6 +221,14 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
             srb.HasOne<Driver>()
                 .WithMany()
                 .HasForeignKey(e => e.DriverId);
+
+            srb.Property(e => e.TeamId)
+                .HasConversion(
+                    e => e.Value,
+                    e => TeamId.Create(e));
+            srb.HasOne<Team>()
+                .WithMany()
+                .HasForeignKey(e => e.TeamId);
         });
 
         builder.Navigation(e => e.SessionResults).Metadata.SetField("_sessionResults");
@@ -185,6 +237,8 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
 
     private void ConfigureRaceQualifications(OwnedNavigationBuilder<RaceWeek, Session<RaceQualificationResult>> builder)
     {
+        builder.HasKey(e => e.Id);
+
         builder.ToTable("RaceQualifications");
         builder.WithOwner()
             .HasForeignKey("RaceWeekId");
@@ -202,6 +256,14 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
             srb.HasOne<Driver>()
                 .WithMany()
                 .HasForeignKey(e => e.DriverId);
+
+            srb.Property(e => e.TeamId)
+                .HasConversion(
+                    e => e.Value,
+                    e => TeamId.Create(e));
+            srb.HasOne<Team>()
+                .WithMany()
+                .HasForeignKey(e => e.TeamId);
         });
 
         builder.Navigation(e => e.SessionResults).Metadata.SetField("_sessionResults");
@@ -210,6 +272,8 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
 
     private void ConfigureRace(OwnedNavigationBuilder<RaceWeek, Session<RaceResult>> builder)
     {
+        builder.HasKey(e => e.Id);
+
         builder.ToTable("Races");
         builder.WithOwner()
             .HasForeignKey("RaceWeekId");
@@ -227,6 +291,14 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
             srb.HasOne<Driver>()
                 .WithMany()
                 .HasForeignKey(e => e.DriverId);
+
+            srb.Property(e => e.TeamId)
+                .HasConversion(
+                    e => e.Value,
+                    e => TeamId.Create(e));
+            srb.HasOne<Team>()
+                .WithMany()
+                .HasForeignKey(e => e.TeamId);
         });
 
         builder.Navigation(e => e.SessionResults).Metadata.SetField("_sessionResults");

@@ -4,6 +4,7 @@ using Application.Features.Drivers.Commands.Create;
 using Application.Features.Drivers.Commands.Delete;
 using Application.Features.Drivers.Commands.Update;
 using Application.Features.Drivers.Queries.Get;
+using Application.Features.Drivers.Queries.GetAll;
 using Application.Features.Drivers.Queries.GetPaginated;
 using Domain.Aggregates.Roles;
 using MapsterMapper;
@@ -39,6 +40,15 @@ public sealed class DriverController : ControllerBase
     public async Task<IActionResult> GetPaginated([FromQuery] PaginationFilters filters)
     {
         var query = new GetPaginatedDriversQuery(filters);
+        var response = await _mediatr.Send(query);
+
+        return Ok(response);
+    }
+
+    [HttpGet("all")]
+    public async Task<IActionResult> GetAll()
+    {
+        var query = new GetAllDriversQuery();
         var response = await _mediatr.Send(query);
 
         return Ok(response);
