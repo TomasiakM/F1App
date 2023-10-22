@@ -2,6 +2,7 @@
 using Domain.Aggregates.Articles;
 using Domain.Aggregates.Comments;
 using Domain.Aggregates.Drivers;
+using Domain.Aggregates.GeneralClassifications;
 using Domain.Aggregates.RaceWeeks;
 using Domain.Aggregates.Seasons;
 using Domain.Aggregates.Tags;
@@ -18,6 +19,7 @@ internal sealed class UnitOfWork : IUnitOfWork
     public IArticleRepository Articles { get; }
     public ICommentRepository Comments { get; }
     public IDriverRepository Drivers { get; }
+    public IGeneralClassificationRepository GeneralClassifications { get; }
     public IRaceWeekRepository RaceWeeks { get; }
     public ISeasonRepository Seasons { get; }
     public ITagRepository Tags { get; }
@@ -32,6 +34,7 @@ internal sealed class UnitOfWork : IUnitOfWork
         Articles = new ArticleRepository(_dbContext);
         Comments = new CommentRepository(_dbContext);
         Drivers = new DriverRepository(_dbContext);
+        GeneralClassifications = new GeneralClassificationRepository(_dbContext);
         RaceWeeks = new RaceWeekRepository(_dbContext);
         Seasons = new SeasonRepository(_dbContext);
         Tags = new TagRepository(_dbContext);

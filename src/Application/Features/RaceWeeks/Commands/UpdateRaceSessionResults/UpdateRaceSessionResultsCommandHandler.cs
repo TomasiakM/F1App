@@ -6,15 +6,18 @@ using Domain.Aggregates.RaceWeeks.ValueObjects;
 using Domain.Aggregates.Teams.ValueObjects;
 using Domain.Exceptions;
 using MediatR;
+using Application.Features.GeneralClassifications.Notifications.RaceResultUpdated;
 
 namespace Application.Features.RaceWeeks.Commands.UpdateRaceSessionResults;
 internal sealed class UpdateRaceSessionResultsCommandHandler : IRequestHandler<UpdateRaceSessionResultsCommand, Unit>
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IPublisher _publisher;
 
-    public UpdateRaceSessionResultsCommandHandler(IUnitOfWork unitOfWork)
+    public UpdateRaceSessionResultsCommandHandler(IUnitOfWork unitOfWork, IPublisher publisher)
     {
         _unitOfWork = unitOfWork;
+        _publisher = publisher;
     }
 
     public async Task<Unit> Handle(UpdateRaceSessionResultsCommand request, CancellationToken cancellationToken)
@@ -43,6 +46,9 @@ internal sealed class UpdateRaceSessionResultsCommandHandler : IRequestHandler<U
         raceWeek.Race.SetSessionResults(sessionResults);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+        await _publisher.Publish(new RaceResultUpdatedNotification(raceWeek.SeasonId.Value), cancellationToken);
+
         return Unit.Value;
     }
 }

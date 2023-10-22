@@ -72,7 +72,10 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
         {
             srb.ToTable("FP1Results");
             srb.WithOwner()
-                .HasForeignKey();
+                .HasForeignKey("SessionId");
+
+            srb.Property("SessionId")
+                .HasColumnName("SessionId");
 
             srb.Property(e => e.DriverId)
                 .HasConversion(
@@ -109,6 +112,9 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
             srb.WithOwner()
                 .HasForeignKey("SessionId");
 
+            srb.Property("SessionId")
+                .HasColumnName("SessionId");
+
             srb.Property(e => e.DriverId)
                 .HasConversion(
                     e => e.Value,
@@ -143,6 +149,9 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
             srb.ToTable("FP3Results");
             srb.WithOwner()
                 .HasForeignKey("SessionId");
+
+            srb.Property("SessionId")
+                .HasColumnName("SessionId");
 
             srb.Property(e => e.DriverId)
                 .HasConversion(
@@ -179,6 +188,9 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
             srb.WithOwner()
                 .HasForeignKey("SessionId");
 
+            srb.Property("SessionId")
+                .HasColumnName("SessionId");
+
             srb.Property(e => e.DriverId)
                 .HasConversion(
                     e => e.Value,
@@ -213,6 +225,9 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
             srb.ToTable("SprintResults");
             srb.WithOwner()
                 .HasForeignKey("SessionId");
+
+            srb.Property("SessionId")
+                .HasColumnName("SessionId");
 
             srb.Property(e => e.DriverId)
                 .HasConversion(
@@ -249,6 +264,9 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
             srb.WithOwner()
                 .HasForeignKey("SessionId");
 
+            srb.Property("SessionId")
+                .HasColumnName("SessionId");
+
             srb.Property(e => e.DriverId)
                 .HasConversion(
                     e => e.Value,
@@ -283,6 +301,9 @@ internal sealed class RaceWeekConfiguration : IEntityTypeConfiguration<RaceWeek>
             srb.ToTable("RaceResults");
             srb.WithOwner()
                 .HasForeignKey("SessionId");
+
+            srb.Property("SessionId")
+                .HasColumnName("SessionId");
 
             srb.Property(e => e.DriverId)
                 .HasConversion(

@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Features.GeneralClassifications.Notifications.RaceResultUpdated;
+using Application.Interfaces;
 using Domain.Aggregates.Drivers.ValueObjects;
 using Domain.Aggregates.RaceWeeks.Enums;
 using Domain.Aggregates.RaceWeeks.ValueObjects;
@@ -11,10 +12,12 @@ namespace Application.Features.RaceWeeks.Commands.UpdateSprintSessionResults;
 internal sealed class UpdateSprintSessionResultsCommandHandler : IRequestHandler<UpdateSprintSessionResultsCommand, Unit>
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IPublisher _publisher;
 
-    public UpdateSprintSessionResultsCommandHandler(IUnitOfWork unitOfWork)
+    public UpdateSprintSessionResultsCommandHandler(IUnitOfWork unitOfWork, IPublisher publisher)
     {
         _unitOfWork = unitOfWork;
+        _publisher = publisher;
     }
 
     public async Task<Unit> Handle(UpdateSprintSessionResultsCommand request, CancellationToken cancellationToken)
@@ -37,12 +40,15 @@ internal sealed class UpdateSprintSessionResultsCommandHandler : IRequestHandler
                 string.IsNullOrEmpty(e.FinishTime) ? null : TimeSpan.Parse(e.FinishTime),
                 e.Points,
                 DriverId.Create(new(e.DriverId)),
-                TeamId.Create(new(e.TeamId)))
-            ).ToList();
+                TeamId.Create(new(e.TeamId))))
+            .ToList();
 
         raceWeek.Sprint.SetSessionResults(sessionResults);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+        await _publisher.Publish(new RaceResultUpdatedNotification(raceWeek.SeasonId.Value), cancellationToken);
+
         return Unit.Value;
     }
 }

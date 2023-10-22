@@ -1,6 +1,7 @@
 ﻿using Domain.Aggregates.Articles;
 using Domain.Aggregates.Comments;
 using Domain.Aggregates.Drivers;
+using Domain.Aggregates.GeneralClassifications;
 using Domain.Aggregates.RaceWeeks;
 using Domain.Aggregates.Roles;
 using Domain.Aggregates.Seasons;
@@ -20,6 +21,7 @@ internal sealed class AppDbContext : DbContext
     public DbSet<Article> Articles => Set<Article>();
     public DbSet<Comment> Comments => Set<Comment>();
     public DbSet<Driver> Drivers => Set<Driver>();
+    public DbSet<GeneralClassification> GeneralClassification => Set<GeneralClassification>();
     public DbSet<RaceWeek> RaceWeeks => Set<RaceWeek>();
     public DbSet<Role> Roles => Set<Role>();
     public DbSet<Season> Seasons => Set<Season>();

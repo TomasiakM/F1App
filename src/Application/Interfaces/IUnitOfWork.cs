@@ -1,6 +1,7 @@
 ﻿using Domain.Aggregates.Articles;
 using Domain.Aggregates.Comments;
 using Domain.Aggregates.Drivers;
+using Domain.Aggregates.GeneralClassifications;
 using Domain.Aggregates.RaceWeeks;
 using Domain.Aggregates.Seasons;
 using Domain.Aggregates.Tags;
@@ -14,6 +15,7 @@ public interface IUnitOfWork
     IArticleRepository Articles { get; }
     ICommentRepository Comments { get; }
     IDriverRepository Drivers { get; }
+    IGeneralClassificationRepository GeneralClassifications { get; }
     IRaceWeekRepository RaceWeeks { get; }
     ISeasonRepository Seasons { get; }
     ITagRepository Tags { get; }

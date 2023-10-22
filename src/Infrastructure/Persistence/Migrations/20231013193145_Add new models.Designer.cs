@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20231004162034_Add new models")]
+    [Migration("20231013193145_Add new models")]
     partial class Addnewmodels
     {
         /// <inheritdoc />
@@ -122,6 +122,21 @@ namespace Infrastructure.Persistence.Migrations
                         .IsUnique();
 
                     b.ToTable("Drivers", (string)null);
+                });
+
+            modelBuilder.Entity("Domain.Aggregates.GeneralClassifications.GeneralClassification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("SeasonId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SeasonId");
+
+                    b.ToTable("GeneralClassifications", (string)null);
                 });
 
             modelBuilder.Entity("Domain.Aggregates.RaceWeeks.RaceWeek", b =>
@@ -407,6 +422,91 @@ namespace Infrastructure.Persistence.Migrations
                     b.Navigation("Replies");
                 });
 
+            modelBuilder.Entity("Domain.Aggregates.GeneralClassifications.GeneralClassification", b =>
+                {
+                    b.HasOne("Domain.Aggregates.Seasons.Season", null)
+                        .WithMany()
+                        .HasForeignKey("SeasonId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.OwnsMany("Domain.Aggregates.GeneralClassifications.ValueObjects.DriverClassification", "Drivers", b1 =>
+                        {
+                            b1.Property<Guid>("GeneralClassificationId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
+                            b1.Property<Guid>("DriverId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Place")
+                                .HasColumnType("int");
+
+                            b1.Property<float>("Points")
+                                .HasColumnType("real");
+
+                            b1.HasKey("GeneralClassificationId", "Id");
+
+                            b1.HasIndex("DriverId");
+
+                            b1.ToTable("DriverClassifications", (string)null);
+
+                            b1.HasOne("Domain.Aggregates.Drivers.Driver", null)
+                                .WithMany()
+                                .HasForeignKey("DriverId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+
+                            b1.WithOwner()
+                                .HasForeignKey("GeneralClassificationId");
+                        });
+
+                    b.OwnsMany("Domain.Aggregates.GeneralClassifications.ValueObjects.TeamClassification", "Teams", b1 =>
+                        {
+                            b1.Property<Guid>("GeneralClassificationId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.Property<int>("Id")
+                                .ValueGeneratedOnAdd()
+                                .HasColumnType("int");
+
+                            SqlServerPropertyBuilderExtensions.UseIdentityColumn(b1.Property<int>("Id"));
+
+                            b1.Property<int>("Place")
+                                .HasColumnType("int");
+
+                            b1.Property<float>("Points")
+                                .HasColumnType("real");
+
+                            b1.Property<Guid>("TeamId")
+                                .HasColumnType("uniqueidentifier");
+
+                            b1.HasKey("GeneralClassificationId", "Id");
+
+                            b1.HasIndex("TeamId");
+
+                            b1.ToTable("TeamClassifications", (string)null);
+
+                            b1.WithOwner()
+                                .HasForeignKey("GeneralClassificationId");
+
+                            b1.HasOne("Domain.Aggregates.Teams.Team", null)
+                                .WithMany()
+                                .HasForeignKey("TeamId")
+                                .OnDelete(DeleteBehavior.Cascade)
+                                .IsRequired();
+                        });
+
+                    b.Navigation("Drivers");
+
+                    b.Navigation("Teams");
+                });
+
             modelBuilder.Entity("Domain.Aggregates.RaceWeeks.RaceWeek", b =>
                 {
                     b.HasOne("Domain.Aggregates.Seasons.Season", null)
@@ -448,7 +548,8 @@ namespace Infrastructure.Persistence.Migrations
                             b1.OwnsMany("Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.FP1Result", "SessionResults", b2 =>
                                 {
                                     b2.Property<int>("SessionId")
-                                        .HasColumnType("int");
+                                        .HasColumnType("int")
+                                        .HasColumnName("SessionId");
 
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAdd()
@@ -525,7 +626,8 @@ namespace Infrastructure.Persistence.Migrations
                             b1.OwnsMany("Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.FP2Result", "SessionResults", b2 =>
                                 {
                                     b2.Property<int>("SessionId")
-                                        .HasColumnType("int");
+                                        .HasColumnType("int")
+                                        .HasColumnName("SessionId");
 
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAdd()
@@ -602,7 +704,8 @@ namespace Infrastructure.Persistence.Migrations
                             b1.OwnsMany("Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.FP3Result", "SessionResults", b2 =>
                                 {
                                     b2.Property<int>("SessionId")
-                                        .HasColumnType("int");
+                                        .HasColumnType("int")
+                                        .HasColumnName("SessionId");
 
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAdd()
@@ -679,7 +782,8 @@ namespace Infrastructure.Persistence.Migrations
                             b1.OwnsMany("Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.RaceQualificationResult", "SessionResults", b2 =>
                                 {
                                     b2.Property<int>("SessionId")
-                                        .HasColumnType("int");
+                                        .HasColumnType("int")
+                                        .HasColumnName("SessionId");
 
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAdd()
@@ -759,7 +863,8 @@ namespace Infrastructure.Persistence.Migrations
                             b1.OwnsMany("Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.RaceResult", "SessionResults", b2 =>
                                 {
                                     b2.Property<int>("SessionId")
-                                        .HasColumnType("int");
+                                        .HasColumnType("int")
+                                        .HasColumnName("SessionId");
 
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAdd()
@@ -848,7 +953,8 @@ namespace Infrastructure.Persistence.Migrations
                             b1.OwnsMany("Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.SprintQualificationResult", "SessionResults", b2 =>
                                 {
                                     b2.Property<int>("SessionId")
-                                        .HasColumnType("int");
+                                        .HasColumnType("int")
+                                        .HasColumnName("SessionId");
 
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAdd()
@@ -928,7 +1034,8 @@ namespace Infrastructure.Persistence.Migrations
                             b1.OwnsMany("Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.SprintResult", "SessionResults", b2 =>
                                 {
                                     b2.Property<int>("SessionId")
-                                        .HasColumnType("int");
+                                        .HasColumnType("int")
+                                        .HasColumnName("SessionId");
 
                                     b2.Property<int>("Id")
                                         .ValueGeneratedOnAdd()

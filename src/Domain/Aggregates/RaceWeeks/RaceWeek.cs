@@ -156,6 +156,32 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
         Race.SetSessionStart(start);
     }
 
+    public List<SprintResult> GetAllSprintResults()
+    {
+
+        var results = new List<SprintResult>();
+
+        if (Sprint is not null)
+        {
+            results.AddRange(Sprint.SessionResults);
+        }
+
+        return results;
+    }
+
+    public List<RaceResult> GetAllRaceResults()
+    {
+
+        var results = new List<RaceResult>();
+
+        if(Race is not null) 
+        {
+            results.AddRange(Race.SessionResults);
+        }
+
+        return results;
+    }
+
     #pragma warning disable CS8618
     private RaceWeek() : base(RaceWeekId.Create()) { }
     #pragma warning restore CS8618
