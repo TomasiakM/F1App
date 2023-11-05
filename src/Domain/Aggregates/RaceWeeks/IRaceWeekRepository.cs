@@ -4,4 +4,5 @@ using Domain.Interfaces;
 namespace Domain.Aggregates.RaceWeeks;
 public interface IRaceWeekRepository : IRepository<RaceWeek, RaceWeekId>
 {
+    Task<RaceWeek?> GetNextAsync(IDateProvider dateProvider, CancellationToken cancellationToken);
 }

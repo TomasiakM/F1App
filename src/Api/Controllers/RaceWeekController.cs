@@ -11,6 +11,7 @@ using Application.Features.RaceWeeks.Commands.UpdateSprintQualificationSessionRe
 using Application.Features.RaceWeeks.Commands.UpdateSprintSessionResults;
 using Application.Features.RaceWeeks.Queries.Get;
 using Application.Features.RaceWeeks.Queries.GetBySeason;
+using Application.Features.RaceWeeks.Queries.GetNext;
 using MapsterMapper;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -43,6 +44,15 @@ public class RaceWeekController : ControllerBase
     public async Task<IActionResult> GetBySeason(Guid seasonId)
     {
         var query = new GetBySeasonRaceWeeksQuery(seasonId);
+        var response = await _mediatr.Send(query);
+
+        return Ok(response);
+    }
+
+    [HttpGet("next")]
+    public async Task<IActionResult> GetNext()
+    {
+        var query = new GetNextRaceWeekQuery();
         var response = await _mediatr.Send(query);
 
         return Ok(response);
