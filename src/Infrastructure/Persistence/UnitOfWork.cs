@@ -4,10 +4,12 @@ using Domain.Aggregates.Comments;
 using Domain.Aggregates.Drivers;
 using Domain.Aggregates.GeneralClassifications;
 using Domain.Aggregates.RaceWeeks;
+using Domain.Aggregates.Ratings;
 using Domain.Aggregates.Seasons;
 using Domain.Aggregates.Tags;
 using Domain.Aggregates.Teams;
 using Domain.Aggregates.Tracks;
+using Domain.Aggregates.UserDriverRatings;
 using Domain.Aggregates.Users;
 using Infrastructure.Persistence.Repositories;
 
@@ -21,10 +23,12 @@ internal sealed class UnitOfWork : IUnitOfWork
     public IDriverRepository Drivers { get; }
     public IGeneralClassificationRepository GeneralClassifications { get; }
     public IRaceWeekRepository RaceWeeks { get; }
+    public IRatingRepository Ratings { get; }
     public ISeasonRepository Seasons { get; }
     public ITagRepository Tags { get; }
     public ITeamRepository Teams { get; }
     public ITrackRepository Tracks { get; }
+    public IUserDriverRatingRepository UserDriverRatings { get; }
     public IUserRepository Users { get; }
 
     public UnitOfWork(AppDbContext dbContext)
@@ -36,10 +40,12 @@ internal sealed class UnitOfWork : IUnitOfWork
         Drivers = new DriverRepository(_dbContext);
         GeneralClassifications = new GeneralClassificationRepository(_dbContext);
         RaceWeeks = new RaceWeekRepository(_dbContext);
+        Ratings = new RatingRepository(_dbContext);
         Seasons = new SeasonRepository(_dbContext);
         Tags = new TagRepository(_dbContext);
         Teams = new TeamRepository(_dbContext);
         Tracks = new TrackRepository(_dbContext);
+        UserDriverRatings = new UserDriverRatingRepository(_dbContext);
         Users = new UserRepository(_dbContext);
     }
 

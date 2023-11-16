@@ -13,7 +13,7 @@ public sealed class Driver : AggregateRoot<DriverId>
     public string DescriptionHtml { get; private set; }
     public string Slug { get; private set; }
 
-    private Driver(string firstName, string lastName, DateTime dateOfBirth, string countryCode, string image, string descriptionHtml) 
+    private Driver(string firstName, string lastName, DateTime dateOfBirth, string countryCode, string image, string descriptionHtml)
         : base(DriverId.Create())
     {
         FirstName = firstName;
@@ -47,4 +47,8 @@ public sealed class Driver : AggregateRoot<DriverId>
 
         return s.ToUrlFriendly();
     }
+
+    #pragma warning disable CS8618
+    private Driver() : base(DriverId.Create()) { }
+    #pragma warning restore CS8618
 }

@@ -3,11 +3,13 @@ using Domain.Aggregates.Comments;
 using Domain.Aggregates.Drivers;
 using Domain.Aggregates.GeneralClassifications;
 using Domain.Aggregates.RaceWeeks;
+using Domain.Aggregates.Ratings;
 using Domain.Aggregates.Roles;
 using Domain.Aggregates.Seasons;
 using Domain.Aggregates.Tags;
 using Domain.Aggregates.Teams;
 using Domain.Aggregates.Tracks;
+using Domain.Aggregates.UserDriverRatings;
 using Domain.Aggregates.Users;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -23,11 +25,13 @@ internal sealed class AppDbContext : DbContext
     public DbSet<Driver> Drivers => Set<Driver>();
     public DbSet<GeneralClassification> GeneralClassification => Set<GeneralClassification>();
     public DbSet<RaceWeek> RaceWeeks => Set<RaceWeek>();
+    public DbSet<Rating> Ratings => Set<Rating>();
     public DbSet<Role> Roles => Set<Role>();
     public DbSet<Season> Seasons => Set<Season>();
     public DbSet<Tag> Tags => Set<Tag>();
     public DbSet<Team> Teams => Set<Team>();
     public DbSet<Track> Tracks => Set<Track>();
+    public DbSet<UserDriverRating> UserDriverRatings => Set<UserDriverRating>();
     public DbSet<User> Users => Set<User>();
 
     public AppDbContext(IConfiguration configuration)
@@ -38,6 +42,8 @@ internal sealed class AppDbContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder options)
     {
         options.UseSqlServer(_configuration.GetConnectionString("DbConnection"));
+        //options.EnableSensitiveDataLogging()
+        //   .LogTo(Console.WriteLine);
     }
 
     protected override void OnModelCreating(ModelBuilder builder)
