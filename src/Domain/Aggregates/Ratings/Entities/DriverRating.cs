@@ -22,7 +22,15 @@ public sealed class DriverRating : Entity<int>
 
     public void AddRate(double rating)
     {
-        Rating = ((Rating * RatesCount) + rating) / RatesCount;
+        if(RatesCount == 0)
+        {
+            Rating = rating;
+        }
+        else
+        {
+            Rating = ((Rating * RatesCount) + rating) / RatesCount;
+        }
+
         RatesCount++;
     }
 

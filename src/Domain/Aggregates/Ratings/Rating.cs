@@ -5,30 +5,40 @@ using Domain.Aggregates.Ratings.Exceptions;
 using Domain.Aggregates.Ratings.ValueObjects;
 using Domain.Aggregates.UserDriverRatings;
 using Domain.DDD;
+using Domain.Interfaces;
 
 namespace Domain.Aggregates.Ratings;
 public sealed class Rating : AggregateRoot<RatingId>
 {
+    private readonly int _ratingExpiryDays = 3;
+
     private List<DriverId> _driverIds = new();
     private List<DriverRating> _driverRatings = new();
 
     public RaceWeekId RaceWeekId { get; private set; }
     public DateTimeOffset Finish { get; private set; }
+    public bool IsSummarized { get; private set; }
 
     public IReadOnlyList<DriverId> DriverIds => _driverIds.AsReadOnly();
     public IReadOnlyList<DriverRating> DriverRatings => _driverRatings.AsReadOnly();
 
-    private Rating(RaceWeekId raceWeekId, DateTimeOffset finish, List<DriverId> driverIds)
+    private Rating(RaceWeekId raceWeekId, List<DriverId> driverIds, IDateProvider dateProvider)
         : base(RatingId.Create())
     {
         RaceWeekId = raceWeekId;
-        Finish = finish;
+        IsSummarized = false;
+
+        var date = dateProvider.Now.AddDays(_ratingExpiryDays);
+        var ratingFinishDate = new DateTimeOffset(date.Year, date.Month, date.Day, 0, 0, 0, new TimeSpan(1, 0, 0));
+
+        Finish = ratingFinishDate;
 
         _driverIds = driverIds;
+        _driverRatings = _driverIds.Select(e => DriverRating.Create(e)).ToList();
     }
 
-    public static Rating Create(RaceWeekId raceWeekId, DateTimeOffset finish, List<DriverId> driverIds)
-        => new(raceWeekId, finish, driverIds);
+    public static Rating Create(RaceWeekId raceWeekId, List<DriverId> driverIds, IDateProvider dateProvider)
+        => new(raceWeekId, driverIds, dateProvider);
 
     public void AddRatings(ICollection<UserDriverRating> ratings)
     {
@@ -47,7 +57,7 @@ public sealed class Rating : AggregateRoot<RatingId>
         }
     }
 
-    public void UpdateAllDriversRatings(ICollection<UserDriverRating> ratings)
+    public void SummerizeDriversRatings(ICollection<UserDriverRating> ratings)
     {
         var driverIds = ratings.Select(e => e.DriverId)
             .Distinct()
@@ -68,6 +78,8 @@ public sealed class Rating : AggregateRoot<RatingId>
 
             driverRating.AddAllRatings(group.Items);
         }
+
+        IsSummarized = true;
     }
 
 #pragma warning disable CS8618
