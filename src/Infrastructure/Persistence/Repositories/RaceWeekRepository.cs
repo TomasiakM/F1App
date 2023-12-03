@@ -16,6 +16,6 @@ internal sealed class RaceWeekRepository : GenericRepository<RaceWeek, RaceWeekI
         return await _set
             .Where(e => e.Race!.Start > dateProvider.UtcNow)
             .OrderByDescending(e => e.Race!.Start)
-            .FirstAsync(cancellationToken);
+            .FirstOrDefaultAsync(cancellationToken);
     }
 }
