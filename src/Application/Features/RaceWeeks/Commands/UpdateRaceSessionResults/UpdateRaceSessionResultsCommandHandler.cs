@@ -6,7 +6,6 @@ using Domain.Aggregates.RaceWeeks.ValueObjects;
 using Domain.Aggregates.Teams.ValueObjects;
 using Domain.Exceptions;
 using MediatR;
-using Application.Features.GeneralClassifications.Notifications.RaceResultUpdated;
 
 namespace Application.Features.RaceWeeks.Commands.UpdateRaceSessionResults;
 internal sealed class UpdateRaceSessionResultsCommandHandler : IRequestHandler<UpdateRaceSessionResultsCommand, Unit>
@@ -47,7 +46,7 @@ internal sealed class UpdateRaceSessionResultsCommandHandler : IRequestHandler<U
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        await _publisher.Publish(new RaceResultUpdatedNotification(raceWeek.SeasonId.Value), cancellationToken);
+        await _publisher.Publish(new RaceSessionResultsUpdatedEvent(raceWeek.Id.Value, raceWeek.SeasonId.Value), cancellationToken);
 
         return Unit.Value;
     }

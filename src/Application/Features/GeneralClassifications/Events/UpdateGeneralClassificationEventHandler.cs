@@ -1,4 +1,6 @@
 ﻿using Application.Dtos.GeneralClassification.Common;
+using Application.Features.RaceWeeks.Commands.UpdateRaceSessionResults;
+using Application.Features.RaceWeeks.Commands.UpdateSprintSessionResults;
 using Application.Interfaces;
 using Domain.Aggregates.GeneralClassifications;
 using Domain.Aggregates.GeneralClassifications.ValueObjects;
@@ -6,19 +8,28 @@ using Domain.Aggregates.RaceWeeks;
 using Domain.Aggregates.Seasons.ValueObjects;
 using MediatR;
 
-namespace Application.Features.GeneralClassifications.Notifications.RaceResultUpdated;
-internal sealed class RaceResultUpdatedNotificationHandler : INotificationHandler<RaceResultUpdatedNotification>
+namespace Application.Features.GeneralClassifications.Events;
+internal sealed class UpdateGeneralClassificationEventHandler : INotificationHandler<RaceSessionResultsUpdatedEvent>, INotificationHandler<SprintSessionResultsUpdatedEvent>
 {
     private readonly IUnitOfWork _unitOfWork;
 
-    public RaceResultUpdatedNotificationHandler(IUnitOfWork unitOfWork)
+    public UpdateGeneralClassificationEventHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
     }
 
-    public async Task Handle(RaceResultUpdatedNotification notification, CancellationToken cancellationToken)
+    public async Task Handle(SprintSessionResultsUpdatedEvent notification, CancellationToken cancellationToken)
     {
-        var seasonId = SeasonId.Create(notification.SeasonId);
+        await UpdateGeneralClassification(SeasonId.Create(notification.SeasonId), cancellationToken);
+    }
+
+    public async Task Handle(RaceSessionResultsUpdatedEvent notification, CancellationToken cancellationToken)
+    {
+        await UpdateGeneralClassification(SeasonId.Create(notification.SeasonId), cancellationToken);
+    }
+
+    private async Task UpdateGeneralClassification(SeasonId seasonId, CancellationToken cancellationToken = default)
+    {
         var generalClassification = await _unitOfWork.GeneralClassifications.FindAsync(e => e.SeasonId == seasonId);
         var raceWeeks = await _unitOfWork.RaceWeeks.FindAllAsync(e => e.SeasonId == seasonId);
 
@@ -76,7 +87,8 @@ internal sealed class RaceResultUpdatedNotificationHandler : INotificationHandle
 
         drivers.ForEach((e) => e.Positions.Sort());
 
-        drivers.Sort((a, b) => {
+        drivers.Sort((a, b) =>
+        {
             if (a.Points != b.Points) return a.Points < b.Points ? 1 : -1;
 
             var maxA = a.Positions.Count - 1;
@@ -89,7 +101,7 @@ internal sealed class RaceResultUpdatedNotificationHandler : INotificationHandle
                 if (i > maxB) return -1;
 
                 if (a.Positions[i] < b.Positions[i]) return -1;
-                else if (a.Positions[i] > b.Positions[i])  return 1;
+                else if (a.Positions[i] > b.Positions[i]) return 1;
             }
 
             return 0;
@@ -118,7 +130,8 @@ internal sealed class RaceResultUpdatedNotificationHandler : INotificationHandle
 
         teams.ForEach((e) => e.Positions.Sort());
 
-        teams.Sort((a, b) => {
+        teams.Sort((a, b) =>
+        {
             if (a.Points != b.Points) return a.Points < b.Points ? 1 : -1;
 
             var maxA = a.Positions.Count - 1;

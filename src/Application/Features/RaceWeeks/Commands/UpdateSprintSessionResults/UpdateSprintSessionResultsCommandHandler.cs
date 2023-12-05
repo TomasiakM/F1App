@@ -1,5 +1,4 @@
-﻿using Application.Features.GeneralClassifications.Notifications.RaceResultUpdated;
-using Application.Interfaces;
+﻿using Application.Interfaces;
 using Domain.Aggregates.Drivers.ValueObjects;
 using Domain.Aggregates.RaceWeeks.Enums;
 using Domain.Aggregates.RaceWeeks.ValueObjects;
@@ -47,7 +46,7 @@ internal sealed class UpdateSprintSessionResultsCommandHandler : IRequestHandler
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 
-        await _publisher.Publish(new RaceResultUpdatedNotification(raceWeek.SeasonId.Value), cancellationToken);
+        await _publisher.Publish(new SprintSessionResultsUpdatedEvent(raceWeek.SeasonId.Value), cancellationToken);
 
         return Unit.Value;
     }

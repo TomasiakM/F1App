@@ -10,6 +10,7 @@ namespace Application.Features.RaceWeeks.Commands.UpdateRaceQualificationSession
 internal sealed class UpdateRaceQualificationSessionResultsCommandHandler : IRequestHandler<UpdateRaceQualificationSessionResultsCommand, Unit>
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IPublisher _publisher;
 
     public UpdateRaceQualificationSessionResultsCommandHandler(IUnitOfWork unitOfWork)
     {
@@ -21,24 +22,27 @@ internal sealed class UpdateRaceQualificationSessionResultsCommandHandler : IReq
         var raceWeekId = RaceWeekId.Create(request.RaceWeekId);
         var raceWeek = await _unitOfWork.RaceWeeks.GetAsync(raceWeekId);
 
-        if(raceWeek is null || raceWeek.RaceQualifications is null)
+        if (raceWeek is null || raceWeek.RaceQualifications is null)
         {
             throw new NotFoundException();
         }
 
-        var sessionResults = request.SessionResults.Select(e => 
+        var sessionResults = request.SessionResults.Select(e =>
             RaceQualificationResult.Create(
-                e.Place, 
+                e.Place,
                 string.IsNullOrEmpty(e.Q1Time) ? null : TimeSpan.Parse(e.Q1Time),
                 string.IsNullOrEmpty(e.Q2Time) ? null : TimeSpan.Parse(e.Q2Time),
-                string.IsNullOrEmpty(e.Q3Time) ? null : TimeSpan.Parse(e.Q3Time), 
-                DriverId.Create(new(e.DriverId)), 
+                string.IsNullOrEmpty(e.Q3Time) ? null : TimeSpan.Parse(e.Q3Time),
+                DriverId.Create(new(e.DriverId)),
                 TeamId.Create(new(e.TeamId)))
             ).ToList();
 
         raceWeek.RaceQualifications.SetSessionResults(sessionResults);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
+
+        await _publisher.Publish(new RaceQualificationSessionResultsEvent(raceWeek.Id.Value, raceWeek.SeasonId.Value));
+
         return Unit.Value;
     }
 }
