@@ -6,6 +6,7 @@ using Application.Features.Teams.Commands.Update;
 using Application.Features.Teams.Queries.Get;
 using Application.Features.Teams.Queries.GetAll;
 using Application.Features.Teams.Queries.GetPaginated;
+using Application.Features.TeamStatistics.Queries.Get;
 using Domain.Aggregates.Roles;
 using MapsterMapper;
 using MediatR;
@@ -49,6 +50,15 @@ public sealed class TeamController : ControllerBase
     public async Task<IActionResult> GetBySlug(string teamSlug)
     {
         var query = new GetTeamQuery(teamSlug);
+        var response = await _mediatr.Send(query);
+
+        return Ok(response);
+    }
+
+    [HttpGet("{teamId}/statistics")]
+    public async Task<IActionResult> GetStatisctics(Guid teamId)
+    {
+        var query = new GetTeamStatisticQuery(teamId);
         var response = await _mediatr.Send(query);
 
         return Ok(response);

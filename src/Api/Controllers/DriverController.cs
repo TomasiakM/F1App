@@ -6,6 +6,7 @@ using Application.Features.Drivers.Commands.Update;
 using Application.Features.Drivers.Queries.Get;
 using Application.Features.Drivers.Queries.GetAll;
 using Application.Features.Drivers.Queries.GetPaginated;
+using Application.Features.DriverStatistics.Queries.Get;
 using Domain.Aggregates.Roles;
 using MapsterMapper;
 using MediatR;
@@ -31,6 +32,15 @@ public sealed class DriverController : ControllerBase
     public async Task<IActionResult> GetBySlug(string driverSlug)
     {
         var query = new GetDriverQuery(driverSlug);
+        var response = await _mediatr.Send(query);
+
+        return Ok(response);
+    }
+
+    [HttpGet("{driverId}/statistics")]
+    public async Task<IActionResult> GetStatisctics(Guid driverId)
+    {
+        var query = new GetDriverStatisticQuery(driverId);
         var response = await _mediatr.Send(query);
 
         return Ok(response);
