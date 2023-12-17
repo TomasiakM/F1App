@@ -12,9 +12,10 @@ internal sealed class UpdateRaceQualificationSessionResultsCommandHandler : IReq
     private readonly IUnitOfWork _unitOfWork;
     private readonly IPublisher _publisher;
 
-    public UpdateRaceQualificationSessionResultsCommandHandler(IUnitOfWork unitOfWork)
+    public UpdateRaceQualificationSessionResultsCommandHandler(IUnitOfWork unitOfWork, IPublisher publisher)
     {
         _unitOfWork = unitOfWork;
+        _publisher = publisher;
     }
 
     public async Task<Unit> Handle(UpdateRaceQualificationSessionResultsCommand request, CancellationToken cancellationToken)
