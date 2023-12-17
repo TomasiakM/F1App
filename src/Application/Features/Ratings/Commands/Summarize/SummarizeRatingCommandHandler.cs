@@ -22,12 +22,12 @@ internal sealed class SummarizeRatingCommandHandler : IRequestHandler<SummarizeR
         var ratingId = RatingId.Create(request.RatingId);
         var rating = await _unitOfWork.Ratings.GetAsync(ratingId, cancellationToken);
 
-        if(rating is null)
+        if (rating is null)
         {
             throw new NotFoundException();
         }
 
-        if(rating.Finish < _dateProvider.Now)
+        if (!rating.IsReadyToSummerize(_dateProvider))
         {
             throw new RatingIsNotFinishedException();
         }

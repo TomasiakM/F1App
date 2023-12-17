@@ -5,6 +5,7 @@ using Domain.Aggregates.Seasons.ValueObjects;
 using Domain.Aggregates.Tracks.ValueObjects;
 using Domain.DDD;
 using Domain.Extensions;
+using Domain.Interfaces;
 
 namespace Domain.Aggregates.RaceWeeks;
 public sealed class RaceWeek : AggregateRoot<RaceWeekId>
@@ -23,7 +24,7 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
     public Session<RaceResult>? Race { get; private set; } = null;
 
 
-    private RaceWeek(string name, TrackId trackId, SeasonId seasonId) 
+    private RaceWeek(string name, TrackId trackId, SeasonId seasonId)
         : base(RaceWeekId.Create())
     {
         Name = name;
@@ -33,7 +34,7 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
         SeasonId = seasonId;
     }
 
-    public static RaceWeek Create(string name, TrackId trackId, SeasonId seasonId) 
+    public static RaceWeek Create(string name, TrackId trackId, SeasonId seasonId)
         => new(name, trackId, seasonId);
 
     public void Update(string name, TrackId trackId)
@@ -46,12 +47,12 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
 
     public void CreateFp1Session(DateTimeOffset start)
     {
-        FP1 = new(start);    
+        FP1 = new(start);
     }
 
     public void UpdateFp1Session(DateTimeOffset start)
     {
-        if(FP1 is null)
+        if (FP1 is null)
         {
             FP1 = new(start);
             return;
@@ -174,7 +175,7 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
 
         var results = new List<RaceResult>();
 
-        if(Race is not null) 
+        if (Race is not null)
         {
             results.AddRange(Race.SessionResults);
         }
@@ -182,7 +183,21 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
         return results;
     }
 
-    #pragma warning disable CS8618
+    public bool IsReadyToStartRating(IDateProvider dateProvider)
+    {
+        if (Race is null ||
+            Race.SessionResults.Count == 0 ||
+            Race.Start > dateProvider.UtcNow &&
+            dateProvider.UtcNow < Race.Start.AddDays(2))
+        {
+            return false;
+        }
+
+
+        return true;
+    }
+
+#pragma warning disable CS8618
     private RaceWeek() : base(RaceWeekId.Create()) { }
-    #pragma warning restore CS8618
+#pragma warning restore CS8618
 }

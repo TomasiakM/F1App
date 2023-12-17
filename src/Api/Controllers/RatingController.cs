@@ -5,6 +5,7 @@ using Application.Features.Ratings.Commands.Summarize;
 using Application.Features.Ratings.Queries.Get;
 using Application.Features.Ratings.Queries.GetActive;
 using Application.Features.Ratings.Queries.GetUser;
+using Application.Features.Ratings.Queries.IsReadyToStart;
 using Domain.Aggregates.Roles;
 using MapsterMapper;
 using MediatR;
@@ -54,6 +55,16 @@ public sealed class RatingController : ControllerBase
         return Ok(response);
     }
 
+    [HttpGet("{raceWeekId}/isReady")]
+    [Authorize(Roles = Role.AdminRoleName)]
+    public async Task<IActionResult> IsReadyStart(Guid raceWeekId)
+    {
+        var query = new IsReadyRatingQuery(raceWeekId);
+        var response = await _mediatr.Send(query);
+
+        return Ok(response);
+    }
+
     [HttpPost("{raceWeekId}")]
     [Authorize(Roles = Role.AdminRoleName)]
     public async Task<IActionResult> Create(Guid raceWeekId)
@@ -64,7 +75,7 @@ public sealed class RatingController : ControllerBase
         return Ok();
     }
 
-    [HttpPost("summarize/{ratingId}")]
+    [HttpPost("{ratingId}/summarize")]
     [Authorize(Roles = Role.AdminRoleName)]
     public async Task<IActionResult> Summarize(Guid ratingId)
     {

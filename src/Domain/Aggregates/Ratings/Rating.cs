@@ -49,7 +49,7 @@ public sealed class Rating : AggregateRoot<RatingId>
             throw new InvalidDriverRatingsException();
         }
 
-        foreach(var rating in ratings)
+        foreach (var rating in ratings)
         {
             var driverRating = _driverRatings.First(e => e.DriverId == rating.DriverId);
 
@@ -72,7 +72,7 @@ public sealed class Rating : AggregateRoot<RatingId>
             .Select(e => new { DriverId = e.Key, Items = e.ToList() })
             .ToList();
 
-        foreach(var group in groups)
+        foreach (var group in groups)
         {
             var driverRating = _driverRatings.First(e => e.DriverId == group.DriverId);
 
@@ -82,7 +82,12 @@ public sealed class Rating : AggregateRoot<RatingId>
         IsSummarized = true;
     }
 
+    public bool IsReadyToSummerize(IDateProvider dateProvider)
+    {
+        return Finish < dateProvider.UtcNow;
+    }
+
 #pragma warning disable CS8618
     private Rating() : base(RatingId.Create()) { }
-    #pragma warning restore CS8618
+#pragma warning restore CS8618
 }
