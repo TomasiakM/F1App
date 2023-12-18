@@ -11,6 +11,7 @@ using Application.Features.RaceWeeks.Commands.UpdateSprintQualificationSessionRe
 using Application.Features.RaceWeeks.Commands.UpdateSprintSessionResults;
 using Application.Features.RaceWeeks.Queries.Get;
 using Application.Features.RaceWeeks.Queries.GetBySeason;
+using Application.Features.RaceWeeks.Queries.GetByTrack;
 using Application.Features.RaceWeeks.Queries.GetNext;
 using MapsterMapper;
 using MediatR;
@@ -44,6 +45,15 @@ public class RaceWeekController : ControllerBase
     public async Task<IActionResult> GetBySeason(Guid seasonId)
     {
         var query = new GetBySeasonRaceWeeksQuery(seasonId);
+        var response = await _mediatr.Send(query);
+
+        return Ok(response);
+    }
+
+    [HttpGet("track/{trackId}")]
+    public async Task<IActionResult> GetByTrack(Guid trackId)
+    {
+        var query = new GetByTrackRaceWeeksQuery(trackId);
         var response = await _mediatr.Send(query);
 
         return Ok(response);
@@ -87,8 +97,8 @@ public class RaceWeekController : ControllerBase
     }
 
     [HttpPut("{raceWeekId}/fp1")]
-    public async Task<IActionResult> UpdateFp1SessionResults(Guid raceWeekId, UpdateFreePracticeSessionResultsRequest request) 
-    { 
+    public async Task<IActionResult> UpdateFp1SessionResults(Guid raceWeekId, UpdateFreePracticeSessionResultsRequest request)
+    {
         var command = _mapper.Map<UpdateFP1SessionResultsCommand>((raceWeekId, request));
         await _mediatr.Send(command);
 
