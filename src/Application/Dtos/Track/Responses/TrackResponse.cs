@@ -5,4 +5,7 @@ public record TrackResponse(
     string Slug,
     string Image,
     string CountryCode,
-    string DescriptionHtml);
+    string DescriptionHtml,
+    int Length,
+    int Corners,
+    string City);

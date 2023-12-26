@@ -18,7 +18,7 @@ internal sealed class UpdateTrackCommandHandler : IRequestHandler<UpdateTrackCom
         var trackId = TrackId.Create(request.TrackId);
         var track = await _unitOfWork.Tracks.GetAsync(trackId);
 
-        if(track is null)
+        if (track is null)
         {
             throw new NotFoundException();
         }
@@ -27,7 +27,10 @@ internal sealed class UpdateTrackCommandHandler : IRequestHandler<UpdateTrackCom
             request.Name,
             request.CountryCode,
             request.Image,
-            request.DescriptionHtml);
+            request.DescriptionHtml,
+            request.Length,
+            request.Corners,
+            request.City);
 
         await _unitOfWork.SaveChangesAsync(cancellationToken);
 

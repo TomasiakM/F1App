@@ -5,4 +5,7 @@ public record CreateTrackCommand(
     string Name,
     string Image,
     string CountryCode,
-    string DescriptionHtml) : IRequest<Unit>;
+    string DescriptionHtml,
+    int Length,
+    int Corners,
+    string City) : IRequest<Unit>;

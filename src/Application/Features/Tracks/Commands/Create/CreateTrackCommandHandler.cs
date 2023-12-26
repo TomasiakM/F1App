@@ -18,7 +18,10 @@ internal sealed class CreateTrackCommandHandler : IRequestHandler<CreateTrackCom
             request.Name,
             request.CountryCode,
             request.Image,
-            request.DescriptionHtml);
+            request.DescriptionHtml,
+            request.Length,
+            request.Corners,
+            request.City);
 
         _unitOfWork.Tracks.Add(track);
         await _unitOfWork.SaveChangesAsync(cancellationToken);

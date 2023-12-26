@@ -3,4 +3,7 @@ public record CreateTrackRequest(
     string Name,
     string Image,
     string CountryCode,
-    string DescriptionHtml);
+    string DescriptionHtml,
+    int Length,
+    int Corners,
+    string City);

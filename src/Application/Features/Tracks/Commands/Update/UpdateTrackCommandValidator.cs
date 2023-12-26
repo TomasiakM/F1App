@@ -20,5 +20,15 @@ public sealed class UpdateTrackCommandValidator : AbstractValidator<UpdateTrackC
         RuleFor(e => e.DescriptionHtml)
             .NotEmpty().WithMessage(DefaultMessages.NotEmpty)
             .MaximumLength(16_384).WithMessage(DefaultMessages.MaxLength);
+
+        RuleFor(e => e.Length)
+            .NotEmpty().WithMessage(DefaultMessages.NotEmpty);
+
+        RuleFor(e => e.Corners)
+            .NotEmpty().WithMessage(DefaultMessages.NotEmpty);
+
+        RuleFor(e => e.City)
+            .NotEmpty().WithMessage(DefaultMessages.NotEmpty)
+            .MinimumLength(3).WithMessage(DefaultMessages.MinLength);
     }
 }
