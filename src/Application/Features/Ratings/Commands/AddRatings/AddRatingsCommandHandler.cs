@@ -27,12 +27,12 @@ internal sealed class AddRatingsCommandHandler : IRequestHandler<AddRatingsComma
         var ratingId = RatingId.Create(request.RatingId);
         var rating = await _unitOfWork.Ratings.GetAsync(ratingId, cancellationToken);
 
-        if(rating is null)
+        if (rating is null)
         {
             throw new NotFoundException();
         }
 
-        if(_dateProvider.Now < rating.Finish)
+        if (_dateProvider.Now > rating.Finish)
         {
             throw new RatingIsFinishedException();
         }
@@ -41,7 +41,7 @@ internal sealed class AddRatingsCommandHandler : IRequestHandler<AddRatingsComma
         var userRatings = await _unitOfWork.UserDriverRatings
             .FindAsync(e => e.RatingId == rating.Id && e.UserId == userId);
 
-        if(userRatings is not null)
+        if (userRatings is not null)
         {
             throw new UserRatedDriversException();
         }

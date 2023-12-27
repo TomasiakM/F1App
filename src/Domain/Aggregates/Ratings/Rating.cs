@@ -63,7 +63,7 @@ public sealed class Rating : AggregateRoot<RatingId>
             .Distinct()
             .ToList();
 
-        if (driverIds.Count != _driverIds.Count && driverIds.All(_driverIds.Contains))
+        if (driverIds.Count > 0 && driverIds.Count != _driverIds.Count && driverIds.All(_driverIds.Contains))
         {
             throw new InvalidDriverRatingsException();
         }
