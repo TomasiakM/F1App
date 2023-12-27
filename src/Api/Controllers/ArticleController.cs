@@ -6,6 +6,7 @@ using Application.Features.Articles.Commands.Update;
 using Application.Features.Articles.Queries.GetArticle;
 using Application.Features.Articles.Queries.GetPaginated;
 using Application.Features.Articles.Queries.GetPaginatedAdmin;
+using Application.Features.Articles.Queries.GetPaginatedByTag;
 using Domain.Aggregates.Roles;
 using MapsterMapper;
 using MediatR;
@@ -31,6 +32,15 @@ public sealed class ArticleController : ControllerBase
     public async Task<IActionResult> Get([FromQuery] PaginationFilters filters)
     {
         var query = new GetPaginatedArticlesQuery(filters);
+        var res = await _sender.Send(query);
+
+        return Ok(res);
+    }
+
+    [HttpGet("tag/{tagSlug}")]
+    public async Task<IActionResult> GetByTag(string tagSlug, [FromQuery] PaginationFilters filters)
+    {
+        var query = new GetPaginatedArticlesByTagQuery(tagSlug, filters);
         var res = await _sender.Send(query);
 
         return Ok(res);
