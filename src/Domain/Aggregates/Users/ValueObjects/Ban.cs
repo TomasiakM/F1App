@@ -25,6 +25,7 @@ public sealed class Ban : ValueObject
 
     protected override IEnumerable<object> GetEqualityComponents()
     {
-        throw new NotImplementedException();
+        yield return End;
+        yield return Reason;
     }
 }
