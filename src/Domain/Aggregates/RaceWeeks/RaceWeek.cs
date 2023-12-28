@@ -47,14 +47,14 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
 
     public void CreateFp1Session(DateTimeOffset start)
     {
-        FP1 = new(start);
+        FP1 = Session<FP1Result>.Create(start);
     }
 
     public void UpdateFp1Session(DateTimeOffset start)
     {
         if (FP1 is null)
         {
-            FP1 = new(start);
+            FP1 = Session<FP1Result>.Create(start);
             return;
         }
 
@@ -63,14 +63,14 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
 
     public void CreateFp2Session(DateTimeOffset start)
     {
-        FP2 = new(start);
+        FP2 = Session<FP2Result>.Create(start);
     }
 
     public void UpdateFp2Session(DateTimeOffset start)
     {
         if (FP2 is null)
         {
-            FP2 = new(start);
+            FP2 = Session<FP2Result>.Create(start);
             return;
         }
 
@@ -79,14 +79,14 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
 
     public void CreateFp3Session(DateTimeOffset start)
     {
-        FP3 = new(start);
+        FP3 = Session<FP3Result>.Create(start);
     }
 
     public void UpdateFp3Session(DateTimeOffset start)
     {
         if (FP3 is null)
         {
-            FP3 = new(start);
+            FP3 = Session<FP3Result>.Create(start);
             return;
         }
 
@@ -95,14 +95,14 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
 
     public void CreateSprintQualificationSession(DateTimeOffset start)
     {
-        SprintQualifications = new(start);
+        SprintQualifications = Session<SprintQualificationResult>.Create(start);
     }
 
     public void UpdateSprintQualificationSession(DateTimeOffset start)
     {
         if (SprintQualifications is null)
         {
-            SprintQualifications = new(start);
+            SprintQualifications = Session<SprintQualificationResult>.Create(start);
             return;
         }
 
@@ -111,14 +111,14 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
 
     public void CreateSprintSession(DateTimeOffset start)
     {
-        Sprint = new(start);
+        Sprint = Session<SprintResult>.Create(start);
     }
 
     public void UpdateSprintSession(DateTimeOffset start)
     {
         if (Sprint is null)
         {
-            Sprint = new(start);
+            Sprint = Session<SprintResult>.Create(start);
             return;
         }
 
@@ -127,14 +127,14 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
 
     public void CreateRaceQualificationSession(DateTimeOffset start)
     {
-        RaceQualifications = new(start);
+        RaceQualifications = Session<RaceQualificationResult>.Create(start);
     }
 
     public void UpdateRaceQualificationSession(DateTimeOffset start)
     {
         if (RaceQualifications is null)
         {
-            RaceQualifications = new(start);
+            RaceQualifications = Session<RaceQualificationResult>.Create(start);
             return;
         }
 
@@ -143,14 +143,14 @@ public sealed class RaceWeek : AggregateRoot<RaceWeekId>
 
     public void CreateRaceSession(DateTimeOffset start)
     {
-        Race = new(start);
+        Race = Session<RaceResult>.Create(start);
     }
 
     public void UpdateRaceSession(DateTimeOffset start)
     {
         if (Race is null)
         {
-            Race = new(start);
+            Race = Session<RaceResult>.Create(start);
             return;
         }
 

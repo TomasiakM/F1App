@@ -8,11 +8,14 @@ public sealed class Session<TSessionResult> : Entity<int>
     private List<TSessionResult> _sessionResults = new();
     public IReadOnlyList<TSessionResult> SessionResults => _sessionResults.AsReadOnly();
 
-    public Session(DateTimeOffset start)
+    private Session(DateTimeOffset start)
         : base(0)
     {
         Start = start;
     }
+
+    public static Session<TSessionResult> Create(DateTimeOffset start)
+        => new(start);
 
     private Session() : base(0) { }
 

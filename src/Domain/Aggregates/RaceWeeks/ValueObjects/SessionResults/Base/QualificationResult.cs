@@ -3,7 +3,7 @@ using Domain.Aggregates.Teams.ValueObjects;
 using Domain.DDD;
 
 namespace Domain.Aggregates.RaceWeeks.ValueObjects.SessionResults.Base;
-public class QualificationResult : ValueObject
+public abstract class QualificationResult : ValueObject
 {
     public int Place { get; private set; }
     public TimeSpan? Q1Time { get; private set; }
