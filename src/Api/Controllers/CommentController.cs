@@ -1,9 +1,13 @@
 ﻿using Application.Dtos.Comments.Requests;
 using Application.Features.Comments.Commands.AddReply;
 using Application.Features.Comments.Commands.Create;
+using Application.Features.Comments.Commands.Delete;
+using Application.Features.Comments.Commands.DeleteReply;
 using Application.Features.Comments.Queries.GetAllByArticle;
+using Domain.Aggregates.Roles;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -43,6 +47,26 @@ public sealed class CommentController : ControllerBase
     public async Task<IActionResult> AddReply(Guid commentId, AddReplyRequest request)
     {
         var command = _mapper.Map<AddReplyCommand>((commentId, request));
+        await _sender.Send(command);
+
+        return Ok();
+    }
+
+    [Authorize(Roles = Role.AdminRoleName)]
+    [HttpDelete("{commentId}")]
+    public async Task<IActionResult> DeleteComment(Guid commentId)
+    {
+        var command = new DeleteCommentCommand(commentId);
+        await _sender.Send(command);
+
+        return Ok();
+    }
+
+    [Authorize(Roles = Role.AdminRoleName)]
+    [HttpDelete("{commentId}/reply/{replyId}")]
+    public async Task<IActionResult> DeleteReply(Guid commentId, Guid replyId)
+    {
+        var command = new DeleteReplyCommand(commentId, replyId);
         await _sender.Send(command);
 
         return Ok();

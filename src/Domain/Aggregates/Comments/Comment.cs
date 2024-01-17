@@ -3,6 +3,7 @@ using Domain.Aggregates.Comments.Entities;
 using Domain.Aggregates.Comments.ValueObjects;
 using Domain.Aggregates.Users.ValueObjects;
 using Domain.DDD;
+using Domain.Exceptions;
 using Domain.Interfaces;
 
 namespace Domain.Aggregates.Comments;
@@ -35,7 +36,19 @@ public sealed class Comment : AggregateRoot<CommentId>
         _replies.Add(reply);
     }
 
-    #pragma warning disable CS8618
+    public void DeleteReply(ReplyId replyId)
+    {
+        var reply = _replies.Find(x => x.Id == replyId);
+
+        if (reply is null)
+        {
+            throw new NotFoundException();
+        }
+
+        _replies.Remove(reply);
+    }
+
+#pragma warning disable CS8618
     private Comment() : base(CommentId.Create()) { }
-    #pragma warning restore CS8618
+#pragma warning restore CS8618
 }
