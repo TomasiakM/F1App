@@ -86,7 +86,7 @@ public sealed class RatingController : ControllerBase
     }
 
     [HttpPost("{ratingId}/rate")]
-    [Authorize(Roles = Role.UserRoleName)]
+    [Authorize]
     public async Task<IActionResult> AddRatings(Guid ratingId, AddRatingsRequest request)
     {
         var command = _mapper.Map<AddRatingsCommand>((ratingId, request));

@@ -13,8 +13,10 @@ using Application.Features.RaceWeeks.Queries.Get;
 using Application.Features.RaceWeeks.Queries.GetBySeason;
 using Application.Features.RaceWeeks.Queries.GetByTrack;
 using Application.Features.RaceWeeks.Queries.GetNext;
+using Domain.Aggregates.Roles;
 using MapsterMapper;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -69,6 +71,7 @@ public class RaceWeekController : ControllerBase
     }
 
 
+    [Authorize(Roles = Role.AdminRoleName)]
     [HttpPost]
     public async Task<IActionResult> Create(CreateRaceWeekRequest request)
     {
@@ -78,6 +81,7 @@ public class RaceWeekController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = Role.AdminRoleName)]
     [HttpPut("{raceWeekId}")]
     public async Task<IActionResult> Update(Guid raceWeekId, UpdateRaceWeekRequest request)
     {
@@ -87,6 +91,7 @@ public class RaceWeekController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = Role.AdminRoleName)]
     [HttpDelete("{raceWeekId}")]
     public async Task<IActionResult> Update(Guid raceWeekId)
     {
@@ -96,6 +101,7 @@ public class RaceWeekController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = Role.AdminRoleName)]
     [HttpPut("{raceWeekId}/fp1")]
     public async Task<IActionResult> UpdateFp1SessionResults(Guid raceWeekId, UpdateFreePracticeSessionResultsRequest request)
     {
@@ -105,6 +111,7 @@ public class RaceWeekController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = Role.AdminRoleName)]
     [HttpPut("{raceWeekId}/fp2")]
     public async Task<IActionResult> UpdateFp2SessionResults(Guid raceWeekId, UpdateFreePracticeSessionResultsRequest request)
     {
@@ -114,6 +121,7 @@ public class RaceWeekController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = Role.AdminRoleName)]
     [HttpPut("{raceWeekId}/fp3")]
     public async Task<IActionResult> UpdateFp3SessionResults(Guid raceWeekId, UpdateFreePracticeSessionResultsRequest request)
     {
@@ -123,6 +131,7 @@ public class RaceWeekController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = Role.AdminRoleName)]
     [HttpPut("{raceWeekId}/sprintqualification")]
     public async Task<IActionResult> UpdateSprintQualificationSessionResults(Guid raceWeekId, UpdateQualificationSessionResultsRequest request)
     {
@@ -132,6 +141,7 @@ public class RaceWeekController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = Role.AdminRoleName)]
     [HttpPut("{raceWeekId}/sprint")]
     public async Task<IActionResult> UpdateSprintSessionResults(Guid raceWeekId, UpdateRaceSessionResultsRequest request)
     {
@@ -141,6 +151,7 @@ public class RaceWeekController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = Role.AdminRoleName)]
     [HttpPut("{raceWeekId}/racequalification")]
     public async Task<IActionResult> UpdateRaceQualificationSessionResults(Guid raceWeekId, UpdateQualificationSessionResultsRequest request)
     {
@@ -150,6 +161,7 @@ public class RaceWeekController : ControllerBase
         return Ok();
     }
 
+    [Authorize(Roles = Role.AdminRoleName)]
     [HttpPut("{raceWeekId}/race")]
     public async Task<IActionResult> UpdateRaceSessionResults(Guid raceWeekId, UpdateRaceSessionResultsRequest request)
     {

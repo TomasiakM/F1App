@@ -34,6 +34,7 @@ public sealed class CommentController : ControllerBase
         return Ok(response);
     }
 
+    [Authorize]
     [HttpPost("{articleId}")]
     public async Task<IActionResult> Create(Guid articleId, CreateCommentRequest request)
     {
@@ -43,6 +44,7 @@ public sealed class CommentController : ControllerBase
         return Ok();
     }
 
+    [Authorize]
     [HttpPost("{commentId}/reply")]
     public async Task<IActionResult> AddReply(Guid commentId, AddReplyRequest request)
     {
