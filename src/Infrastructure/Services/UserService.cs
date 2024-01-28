@@ -1,5 +1,6 @@
 ﻿using Application.Interfaces;
 using Domain.Aggregates.Users;
+using Domain.Aggregates.Users.Exceptions;
 using Domain.Aggregates.Users.ValueObjects;
 using Domain.Exceptions;
 using Infrastructure.Interfaces;
@@ -47,9 +48,9 @@ internal sealed class UserService : IUserService
         var userId = GetUserId();
         var user = await _unitOfWork.Users.GetAsync(userId);
 
-        if(user is null || !_hashService.Validate(password, user.Password))
+        if (user is null || !_hashService.Validate(password, user.Password))
         {
-            throw new UnauthorizedException();
+            throw new InvalidPasswordException();
         }
 
         var hashedPassord = _hashService.Hash(newPassword);

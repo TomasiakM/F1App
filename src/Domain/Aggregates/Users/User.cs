@@ -38,7 +38,7 @@ public sealed class User : AggregateRoot<UserId>
 
     public void AddRole(RoleId roleId)
     {
-        if(_roleIds.Any(e => e == roleId))
+        if (_roleIds.Any(e => e == roleId))
         {
             throw new DuplicateRoleException();
         }
@@ -50,12 +50,12 @@ public sealed class User : AggregateRoot<UserId>
     {
         var role = _roleIds.FirstOrDefault(e => e == roleId);
 
-        if(role is null)
+        if (role is null)
         {
             throw new NotFoundException();
         }
 
-        if(role == RoleId.UserRoleId)
+        if (role == RoleId.UserRoleId)
         {
             throw new RoleCannotBeRemovedException();
         }
@@ -65,7 +65,14 @@ public sealed class User : AggregateRoot<UserId>
 
     public void AddBan(DateTimeOffset end, string reason, IDateProvider dateProvider)
     {
-        if(GetActiveBan(dateProvider) is not null)
+        var userIsAdmin = RoleIds.Any(e => e == RoleId.AdminRoleId);
+
+        if (userIsAdmin)
+        {
+            throw new CannotBanAdminAccountException();
+        }
+
+        if (GetActiveBan(dateProvider) is not null)
         {
             throw new OneOfBansIsStillActiveException();
         }
@@ -84,7 +91,7 @@ public sealed class User : AggregateRoot<UserId>
         Password = password;
     }
 
-    #pragma warning disable CS8618
+#pragma warning disable CS8618
     private User() : base(UserId.Create()) { }
-    #pragma warning restore CS8618
+#pragma warning restore CS8618
 }
