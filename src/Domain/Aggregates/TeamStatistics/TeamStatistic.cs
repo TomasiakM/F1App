@@ -27,10 +27,10 @@ public sealed class TeamStatistic : AggregateRoot<TeamStatisticId>
             .Where(e => e.RaceQualifications is not null && e.RaceQualifications.SessionResults.Any(sr => sr.TeamId == TeamId))
             .Select(e => e.RaceQualifications);
 
-        Podiums = racesWithTeam.Where(e => e!.SessionResults.Any(sr => sr.Place <= 3)).Count();
-        Wins = racesWithTeam.Where(e => e!.SessionResults.Any(sr => sr.Place == 1)).Count();
+        Podiums = racesWithTeam.Where(e => e!.SessionResults.Any(sr => sr.Place <= 3 && sr.TeamId == TeamId)).Count();
+        Wins = racesWithTeam.Where(e => e!.SessionResults.Any(sr => sr.Place == 1 && sr.TeamId == TeamId)).Count();
 
-        Poles = qualificationsWithTeam.Where(e => e!.SessionResults.Any(sr => sr.Place == 1)).Count();
+        Poles = qualificationsWithTeam.Where(e => e!.SessionResults.Any(sr => sr.Place == 1 && sr.TeamId == TeamId)).Count();
     }
 
     public static TeamStatistic Create(TeamId teamId) =>

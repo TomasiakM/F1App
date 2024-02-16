@@ -32,10 +32,10 @@ public sealed class DriverStatistic : AggregateRoot<DriverStatisticId>
             .Select(e => e.RaceQualifications);
 
         Races = racesWithDriver.Count();
-        Podiums = racesWithDriver.Where(e => e!.SessionResults.Any(sr => sr.Place <= 3)).Count();
-        Wins = racesWithDriver.Where(e => e!.SessionResults.Any(sr => sr.Place == 1)).Count();
+        Podiums = racesWithDriver.Where(e => e!.SessionResults.Any(sr => sr.Place <= 3 && sr.DriverId == DriverId)).Count();
+        Wins = racesWithDriver.Where(e => e!.SessionResults.Any(sr => sr.Place == 1 && sr.DriverId == DriverId)).Count();
 
-        Poles = qualificationsWithDriver.Where(e => e!.SessionResults.Any(sr => sr.Place == 1)).Count();
+        Poles = qualificationsWithDriver.Where(e => e!.SessionResults.Any(sr => sr.Place == 1 && sr.DriverId == DriverId)).Count();
     }
 
 #pragma warning disable CS8618

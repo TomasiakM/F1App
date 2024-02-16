@@ -22,13 +22,13 @@ public sealed class DriverRating : Entity<int>
 
     public void AddRate(double rating)
     {
-        if(RatesCount == 0)
+        if (RatesCount == 0)
         {
             Rating = rating;
         }
         else
         {
-            Rating = ((Rating * RatesCount) + rating) / RatesCount;
+            Rating = ((Rating * RatesCount) + rating) / (RatesCount + 1);
         }
 
         RatesCount++;
@@ -40,7 +40,7 @@ public sealed class DriverRating : Entity<int>
         Rating = ratings.Average(e => e.Rating);
     }
 
-    #pragma warning disable CS8618
+#pragma warning disable CS8618
     private DriverRating() : base(0) { }
-    #pragma warning restore CS8618
+#pragma warning restore CS8618
 }
